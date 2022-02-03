@@ -10,6 +10,6 @@ const auth =  require('../middlewar/auth')
 // Creation des routes user avec les middleware
 
 router.post('/signup', userCtrl.signup);
-
+router.delete('/delete', userCtrl.delete);
 
 module.exports = router;
