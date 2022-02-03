@@ -1,70 +1,34 @@
-const User = require('../model/user');
 
-const bcrypt = require('bcrypt');
 
-const jwt = require('jsonwebtoken');
+const mysql = require("mysql")
 
-const dotenv = require ("dotenv");
-require('dotenv').config();
-//fonction pour ajouter un compte utulisateur 
+// Create connexion
+// i don't use .env because its my openclassrooms project so it's not sensible data. In real project, i will use .env and put it in .gitignore
+const db = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    database : "groupomania"
+  });
+  
+ db.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
 
+//fonction pour créer un compte //testée ok
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-            const user = new User({
-                email: req.body.email,
-                password: hash
-            });
-            user.save()
-                .then(() => res.status(201).json({
-                    message: 'Utilisateur créé !'
-                }))
-                .catch(error => res.status(400).json({
-                    error
-                }));
-        })
-        .catch(error => res.status(500).json({
-            error
-        }));
-};
+          const email = req.body.email;
+          const password = req.body.password;
+          const pseudo = req.body.pseudo;
+          let sqlSignup = `INSERT INTO uers ( email, pseudo, password ) VALUES ( '${email}', '${pseudo}', '${password}' )`;
+          db.query(sqlSignup, function (err, result) {
+              if (err) {
+                  return res.status(500).json(err.message);
+              };
+              res.status(201).json({
+                  message: "Compte créé !"
+              });
+          });
 
-//fonction pour se connecter a son compte utilisateur 
-
-exports.login = (req, res, next) => {
-    User.findOne({
-            email: req.body.email
-        })
-        .then(user => {
-            if (!user) {
-                return res.status(401).json({
-                    error: 'Utilisateur non trouvé !'
-                });
-            }
-            // Comparaison mdp user envoie avec le hash enregistrée
-            bcrypt.compare(req.body.password, user.password)
-                .then(valid => {
-                    if (!valid) {
-                        return res.status(401).json({
-                            error: 'Mot de passe incorrect !'
-                        });
-                    }
-                    // Si identifiant valable on renvoie son userId et un token 
-                    res.status(200).json({
-                        userId: user._id,
-                        token: jwt.sign({
-                                userId: user._id
-                            },
-                           process.env.KEY_TOKEN, {
-                                expiresIn: '24h'
-                            }
-                        )
-                    });
-                })
-                .catch(error => res.status(500).json({
-                    error
-                }));
-        })
-        .catch(error => res.status(500).json({
-            error
-        }));
-};
+     
+}

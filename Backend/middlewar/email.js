@@ -15,6 +15,3 @@ module.exports = (req, res, next) => {
     }
     validEmail(req.body.email)
   }
-  © 2022 GitHub, Inc.
-  Terms
-  Privac

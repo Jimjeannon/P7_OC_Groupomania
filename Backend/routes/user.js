@@ -6,11 +6,10 @@ const router = express.Router();
 const userCtrl = require('../controllers/user');
 const validEmail = require('../middlewar/email')
 const validPass = require('../middlewar/password')
-const limitTry = require ('../middlewar/limit') 
+const auth =  require('../middlewar/auth')
 // Creation des routes user avec les middleware
 
-router.post('/signup', validEmail, validPass, userCtrl.signup);
-router.post('/login', limitTry.limiter, userCtrl.login);
+router.post('/signup', userCtrl.signup);
 
 
 module.exports = router;
