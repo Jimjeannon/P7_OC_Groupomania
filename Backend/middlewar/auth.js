@@ -1,5 +1,5 @@
 
-const dbc = require("../database/db");
+const dbc = require("../server/database");
 
 module.exports = (req, res, next) => {
   try {
