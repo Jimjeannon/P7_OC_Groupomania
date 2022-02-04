@@ -11,5 +11,7 @@ const auth =  require('../middlewar/auth')
 
 router.post('/signup', userCtrl.signup);
 router.delete('/delete', userCtrl.delete);
+router.put('/update', userCtrl.update);
+router.get('/login', userCtrl.login);
 
 module.exports = router;
