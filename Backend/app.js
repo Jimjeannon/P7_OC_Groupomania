@@ -1,5 +1,6 @@
 const express = require('express');
 const userRoutes = require('./routes/user');
+const path = require("path");
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -19,5 +20,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
