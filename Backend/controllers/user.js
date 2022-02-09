@@ -101,6 +101,7 @@ exports.login = (req, res, next) => {
 }
 
 // fonction pour afficher le profil
+
 exports.getOneUser = (req, res, next) => {
     let userId = req.body.id;
     const sqlGetUser = `SELECT * FROM users WHERE id = '${userId}' `;
