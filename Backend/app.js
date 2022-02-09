@@ -1,6 +1,7 @@
 const express = require('express');
 const userRoutes = require('./routes/user');
-const postRoutes = require('./routes/post')
+const postRoutes = require('./routes/post');
+const comRoutes =  require ('./routes/comment');
 const path = require("path");
 const bodyParser = require('body-parser');
 const app = express();
@@ -21,7 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api/user', userRoutes);
-app.use('/api/post', postRoutes)
+app.use('/api/post', postRoutes);
+app.use('/api/comment', comRoutes);
 app.use('/', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
