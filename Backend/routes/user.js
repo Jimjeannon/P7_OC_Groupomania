@@ -17,7 +17,7 @@ router.get('/login',validPass, limitTry.limiter, userCtrl.login);
 router.delete('/delete',auth, userCtrl.delete);
 router.put('/update',auth, userCtrl.update);
 router.get('/profile/:id', userCtrl.getOneUser);
-router.post('/image',auth, multer, img.uploadImage);
+router.post('/image', multer, img.uploadImage);
 
 
 module.exports = router;

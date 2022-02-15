@@ -18,10 +18,12 @@ bcrypt.hash(req.body.password, 10)
           let sqlSignup = `INSERT INTO users ( email, pseudo, password ) VALUES ( '${email}', '${pseudo}', '${password}' )`;
          
           db.query(sqlSignup, function (err, result) {
-              if (err) {
-                  return res.status(500).json(err.message);
-              };
-              res.status(201).json({
+            if (err) {
+                return res.status(404).json({
+                  message: "Signup erreur"
+              });
+            };
+              res.status(200).json({
                   message: "Compte créé !"
               });
           });
@@ -34,13 +36,15 @@ exports.delete = (req, res, next) => {
   let email = req.body.email 
 let sqlDelete = `DELETE FROM users WHERE email='${email}'`;
 db.query(sqlDelete, email, (err, result) => {
-    if (err) {
-        return res.status(500).json(err.message);
+     if (err) {
+        return res.status(404).json({
+          message: "Supression erreur"
+      });
     };
     res.status(200).json({
-        message: "info trouvé"
+        message: "Utilisateur suprimé !"
     });
-    console.log("compte supress !")
+
 })
 }
 
@@ -57,12 +61,14 @@ exports.update = (req, res, next) => {
  console.log(sqlUpdate)
 db.query(sqlUpdate, (err, result) => {
     if (err) {
-        return res.status(500).json(err.message);
+        return res.status(404).json({
+          message: "Modification erreur"
+      });
     };
     res.status(200).json({
-        message: "info trouvé"
+        message: "Information modifié"
     });
-    console.log("compte mis a jour !")
+    console.log("Compte modifié !")
 })
  
 }
@@ -73,13 +79,16 @@ exports.login = (req, res, next) => {
     let emailDb = `Select * FROM users WHERE email = '${emailReq}'`;
     db.query(emailDb, (err, result) => {
         if (err) {
-            return res.status(500).json(err.message);
+            return res.status(404).json({
+              message: "Identification erreur"
+          });
         };
         bcrypt.compare(password, result[0].password)
             .then(valid => {
                 if (!valid) {
-                  console.log("pass non valid")
-                  console.log(valid);
+                    return res.status(400).json({
+                        message: "Password erreur"
+                        })
                 } else{
                     res.status(200).json({
                     id: result['0'].id,
@@ -87,9 +96,8 @@ exports.login = (req, res, next) => {
                         id: result['0'].id
                         },
                        process.env.KEY_TOKEN, {
-                            expiresIn: '24h'
-                        })
-                        
+                            expiresIn: '2h'
+                        })         
             })
          console.log("Token");   
                 }
@@ -107,11 +115,13 @@ exports.getOneUser = (req, res, next) => {
     const sqlGetUser = `SELECT * FROM users WHERE id = '${userId}' `;
     db.query(sqlGetUser, [userId], function (err, result) {
         if (err) {
-            return res.status(500).json(err.message);
+            return res.status(404).json({
+              message: "Affichage utilisateur erreur"
+          });
         };
         if (result.length == 0) {
-            return res.status(400).json({
-                message: "aucun utilisateur trouvé avec cet id"
+            return res.status(404).json({
+                message: "Aucun utilisateur trouvé avec cet id"
             });
         }
         res.status(200).json(result);

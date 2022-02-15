@@ -12,20 +12,20 @@ const MIME_TYPES = {
 //destination du fichier et faire un nom de fichier unique 
 
 const storage = multer.diskStorage({
-
+    
     // destination de stockage fichier 
     destination: (req, file, callback) => {
-        callback(null, 'images');
+        callback(null, 'upload');
     },
 
     // Modification nom du fichier 
     filename: (req, file, callback) => {
         const name = file.originalname.split(' ').join('_');
         const extension = MIME_TYPES[file.mimetype];
-        callback(null, `${name}_${Date.now()}.${extension}`);
+        callback(null, name + Date.now() + '.' + extension);
     }
 });
 
 module.exports = multer({
     storage: storage
-}).single('image');
+}).single('upload');

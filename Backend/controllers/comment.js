@@ -10,7 +10,9 @@ exports.comment = (req, res, next) => {
            
     db.query(sqlComment, function (err, result) {
         if (err) {
-            return res.status(400).json(err.message);
+            return res.status(404).json({
+                message: "Commentaire erreur"
+            });
         };
         res.status(200).json({
             message: "Commentaire valide !"
@@ -27,12 +29,13 @@ exports.modifCom = (req, res, next) => {
  console.log(sqlUpdate)
 db.query(sqlUpdate, (err, result) => {
     if (err) {
-        return res.status(500).json(err.message);
+        return res.status(404).json({
+            message: "Modification erreur !"
+        });
     };
     res.status(200).json({
-        message: "info trouvé"
+        message: "Commentaire modifié"
     });
-    console.log("commentaire mis a jour !")
 })
 }
 
@@ -41,12 +44,13 @@ exports.delete = (req, res, next) => {
     let sqlDelete = `DELETE FROM comment WHERE id='${com_id}'`;
     db.query(sqlDelete, (err, result) => {
         if (err) {
-            return res.status(500).json(err.message);
+            return res.status(404).json({
+                message: "Supretion erreur "
+            });
         };
         res.status(200).json({
-            message: "commentaire suprimé"
+            message: "Commentaire suprimé !"
         });
-        console.log("commentaire suprimé !")
     })
 }
 

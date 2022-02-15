@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "node your-script.js"
+},
+  "dependencies": {
+    "create-react-app": "^1.2.1"
+  }
+}
