@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
-import Profil from './pages/profil'
+import App from './App'
+import './App.css';
+
 
 
 
 
 ReactDOM.render(
 <BrowserRouter>
-<Profil />
+<App/>
 </BrowserRouter>,
   document.getElementById('root')
 );
