@@ -13,7 +13,7 @@ const limitTry = require ('../middlewar/limit')
 // Creation des routes user avec les middleware
 
 router.post('/signup',validEmail, validPass, userCtrl.signup);
-router.get('/login',validPass, limitTry.limiter, userCtrl.login);
+router.post('/login',validPass, limitTry.limiter, userCtrl.login);
 router.delete('/delete',auth, userCtrl.delete);
 router.put('/update',auth, userCtrl.update);
 router.get('/profile/:id', userCtrl.getOneUser);

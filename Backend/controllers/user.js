@@ -96,10 +96,10 @@ exports.login = (req, res, next) => {
                         id: result['0'].id
                         },
                        process.env.KEY_TOKEN, {
-                            expiresIn: '2h'
+                            expiresIn: '24h'
                         })         
             })
-         console.log("Token");   
+          
                 }
                 
     })

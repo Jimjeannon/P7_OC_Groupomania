@@ -1,4 +1,98 @@
 body{
-color:rgb(195, 44, 44);
-background-color: rgb(202, 202, 223);
+background-color: #f1f4fa;
+font-family:sans-serif;
+}
+
+.logo-profile{ 
+    position: absolute;
+    width: 200px;
+    margin-left: 5%;
+    top: -40px;
+    left: -20px;
+}
+
+.log{
+    margin-top: 50px;
+    list-style-type: none;  
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 30px;   
+}
+#register:active{ 
+    background-color: blue;
+}
+
+
+#register{
+padding-right: 40px;
+cursor: pointer;
+font-weight: bold;
+}
+
+#login{
+cursor: pointer;
+font-weight: bold;
+}
+
+/* Gestion de la carte login */
+
+.card-position{ 
+   margin-top: 15%;
+   margin-left: 35%;
+}
+
+.card-form{
+    
+    text-align: center;
+    align-items: center;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    box-sizing: border-box;
+    margin: 40px 0 0;
+    padding: 20px 0 28px;
+    width: 396px; 
+}
+
+.email{
+    font-size: 17px;
+    border-radius: 6px ;
+    padding: 14px 16px;
+    width: 330px;
+    border: 1px solid#727272;
+    background-color: #e6effd;
+}
+
+#password{
+    font-size: 17px;
+    border-radius: 6px ;
+    padding: 14px 16px;
+    width: 330px;
+    border: 1px solid#727272;
+    background-color: #e6effd;
+}
+
+.pseudo{
+    font-size: 17px;
+    border-radius: 6px ;
+    padding: 14px 16px;
+    width: 330px;
+    border: 1px solid#727272;
+    background-color: #e6effd;
+}
+
+.submit-button{
+    color: white;
+    background-color: #1A2D4B;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    line-height: 48px;
+    padding: 0 16px;
+    width: 332px;
+}
+
+.passwordError{
+    color: rgb(200, 76, 76);
 }

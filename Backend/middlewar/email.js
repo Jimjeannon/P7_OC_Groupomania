@@ -7,9 +7,7 @@ module.exports = (req, res, next) => {
             console.log("Email ok")
             next()
         } else {
-            res.status(400).json({
-                message: 'Email incorrect'
-            });
+          console.log("Email not found")
         }
         return testEmail
     }
