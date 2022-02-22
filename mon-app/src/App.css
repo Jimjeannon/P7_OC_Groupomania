@@ -96,3 +96,23 @@ font-weight: bold;
 .passwordError{
     color: rgb(200, 76, 76);
 }
+
+
+/* Gestion du profil avec image */
+
+.profile-card{
+    text-align: center;
+    align-items: center;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    box-sizing: border-box;
+    margin: 40px 0 0;
+    padding: 20px 0 28px;
+    width: 396px; 
+}
+
+#img-profile{
+    border-radius: 8px;
+}

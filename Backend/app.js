@@ -5,7 +5,7 @@ const comRoutes =  require ('./routes/comment');
 const path = require("path");
 const bodyParser = require('body-parser');
 const app = express();
-
+const cookieParser = require("cookie-parser");
 
 app.use((req, res, next) => {
     // Ce header permet  à notre API depuis n'importe quelle origine
@@ -17,6 +17,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());

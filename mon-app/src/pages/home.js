@@ -1,15 +1,17 @@
 import React from 'react';
 import '../App.css';
-import { useNavigate } from "react-router-dom";
 
+import  Profile from "../components/Profile"
+import Logo from "../logos/icon-left-font-monochrome-black.png";
 
 function Home () {
       return (
+        <div>
+        <img className="logo-profile" src={Logo} alt="logo groupomania"></img>
         <div className="connection-form"> 
-            <div>
-              Welcome to MonComposant
+            
+            < Profile />
             </div>
-            <h1>Yooooooooooooooooooooooo</h1>
             </div>
         );
 }

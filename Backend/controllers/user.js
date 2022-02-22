@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const dotenv = require ("dotenv");
 require('dotenv').config();
+
 //fonction pour créer un compte
 
 exports.signup = (req, res, next) => {
@@ -73,6 +74,8 @@ db.query(sqlUpdate, (err, result) => {
  
 }
 // s'identifier
+
+
 exports.login = (req, res, next) => {
     let password = req.body.password;
     let emailReq = req.body.email;
@@ -90,6 +93,7 @@ exports.login = (req, res, next) => {
                         message: "Password erreur"
                         })
                 } else{
+                    res.cookie('name', 'value')
                     res.status(200).json({
                     id: result['0'].id,
                     token: jwt.sign({
@@ -99,7 +103,7 @@ exports.login = (req, res, next) => {
                             expiresIn: '24h'
                         })         
             })
-          
+           
                 }
                 
     })

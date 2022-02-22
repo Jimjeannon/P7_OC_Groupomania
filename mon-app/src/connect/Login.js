@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
+import Cookies from 'js-cookie'
 class LoginForm extends Component {
 	constructor(props) {
 		super(props)
@@ -24,11 +24,15 @@ class LoginForm extends Component {
 			.post('http://localhost:8080/api/user/login', this.state)
 			.then(response => {
 				window.location = "/home";
+				Cookies.set('Token', response.data.token,  { expires: 7, path: '' })
 			})
-			.catch(error => {
+			.catch(err => {
+				console.log(err)
 			let message = document.querySelector(".passwordError")
 			message.innerHTML = "Mot de passe ou email non valide";
+			
 			})
+			
 	}
 
 	render() {
