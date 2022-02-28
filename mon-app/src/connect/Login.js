@@ -19,18 +19,20 @@ class LoginForm extends Component {
 
 	submitHandler = e => {
 		e.preventDefault()
-		console.log(this.state)
+		
 		axios
 			.post('http://localhost:8080/api/user/login', this.state)
 			.then(response => {
-				window.location = "/home";
-				Cookies.set('Token', response.data.token,  { expires: 7, path: '' })
+				const id = response.data.id
+				localStorage.setItem("id", JSON.stringify(id));
+				window.location = `/profil/${id}`;
+				Cookies.set('Token', response.data.token,  { expires: 7, path: '', })
+				console.log(response.data.id)
 			})
 			.catch(err => {
-				console.log(err)
 			let message = document.querySelector(".passwordError")
-			message.innerHTML = "Mot de passe ou email non valide";
-			
+			message.innerHTML = `${err.response.data.message}`;
+			message.innerHTML = `${err.response.data}`;
 			})
 			
 	}
@@ -49,6 +51,7 @@ class LoginForm extends Component {
   value={email}
   onChange={this.changeHandler}
  />
+ <br />
  
  <br />
  <label htmlFor="password">Mot de passe</label>
@@ -56,10 +59,12 @@ class LoginForm extends Component {
  <input
    type="password"
    name="password"
+   className="email"
    id="password"
    value={password}
    onChange={this.changeHandler}
  />
+ <br/>
  <div className="passwordError"></div>
  <br />
  <input className="submit-button" type="submit" value="Se connecter" />

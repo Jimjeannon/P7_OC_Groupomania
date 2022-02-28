@@ -6,7 +6,8 @@ const db = dbc.getDB();
 // ajouter une image de profile 
 
 exports.uploadImage = (req, res, next) => {
-    const id = req.originalUrl.split("=")[1];
+  
+    const id = req.params.id;
    const image = `${req.protocol}://${req.get('host')}/images/${req.file}`;
    console.log(image);
    let sqlUpdate = `UPDATE users SET ${image} WHERE id='${id}' `;

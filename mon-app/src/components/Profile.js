@@ -1,33 +1,80 @@
 import React, { useState } from 'react';
-import imageProfile from "../logos/img-group.jpg";
+import UploadImg from "../components/UpImg";
 import Update from "../components/Update"
+import Delete from "../components/Delete"
+import axios from "axios";
+
+
 
 
 const Profile = props => {
 
-    const [UpModal, setUpModal] = useState(false);
+ 
 
+  let urlElements = window.location.href.split('/');
+  let id = urlElements[4]
+ 
+		axios
+			.get(`http://localhost:8080/api/user/profile/${id}`)
+			.then(response => {
+
+
+        const email = document.getElementById('emailProfile')
+        email.innerHTML = response.data[0].email;
+
+        const pseudo = document.getElementById('pseudoProfile')
+        pseudo.innerHTML = response.data[0].pseudo;
+
+        const city = document.getElementById('cityProfile')
+        city.innerHTML = response.data[0].Ville;
+
+        const job = document.getElementById('jobProfile')
+        job.innerHTML = response.data[0].Emploi;
+			})
+			.catch(error => {
+			console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+			})
+	
+
+    const [UpModal, setUpModal] = useState(false);
+    const [DeleteModal, setDeleteModal] = useState(false);
     const handleModals = (e) => {
-        if (e.target.id === "modifier"){
-            
+        if (e.target.id === "modifier") {
+            setDeleteModal(false);
             setUpModal(true);
-        }else{
-            alert()
+        } else if (e.target.id === "suprimer") {
+            setUpModal(false);
+          setDeleteModal(true);
         }
-    }
+      };
     return (
         <div className="card-position">
         <div className="profile-card ">
-            <img src={imageProfile} alt = "Profile image" width="200" id="img-profile"></img>
-            <h1>Pseudo</h1>
-            <div className="info-profile">Developer</div>
-            <i id="i" className="fas fa-map-marker-alt"></i>
-            <div className="info-profile">Paris</div>
+          <div className="icon-color"> 
+        
+        </div>
+        <div >
+        < UploadImg/>
+        </div>
+           
             
-            <div className="info-profile" id="emailProfile">Email</div>
-            <input  type="submit" value="Modifier" onClick={handleModals}  id="modifier" />
-            <input  type="submit" value="Suprimer" />
+            <h1 id="pseudoProfile"></h1>
+            <div className="info-profile"> 
+            <i  className="fas fa-user"></i>
+            <div id="jobProfile" className="info-profile"></div>
+ </div>
+            <div className="info-profile">  
+            <i  className="fas fa-map-marker-alt"></i>
+            <div id="cityProfile" className="info-profile"></div>
+</div>
+            <div className="info-profile">  
+            <i id="i" className="fas fa-envelope"></i>
+            <div className="info-profile" id="emailProfile" value='text'></div>
+</div>
+            <input  type="submit" value="Modifier" onClick={handleModals}  id="modifier" className="btn-profil"/>
+            <input  type="submit" value="Suprimer" onClick={handleModals}  id="suprimer" className="btn-profil"/>
           {UpModal && < Update/>}
+          {DeleteModal && < Delete/>}
           
         </div>
         </div>

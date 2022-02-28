@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
 import axios from "axios";
-
+import Cookies from "js-cookie"
 export default class FormInputs extends Component {
     
     state = {
         email: '',
         pseudo: '',
-        job: '',
-        ville: '',
-        items: []
+        password: '',
+        Emploi: '',
+            Ville:''
     }
 
     onChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         });
-         console.log(this.state.nom);
 
     }
 
@@ -24,61 +23,47 @@ export default class FormInputs extends Component {
         this.setState({
             email: '',
             pseudo: '',
-            job: '',
-            ville: '',
-            items: [...this.state.items, { email: this.state.email, pseudo: this.state.pseudo, job: this.state.job, ville: this.state.ville }]
+            password: '',
+            Emploi: '',
+            Ville:''
         });
     }
 
     submitHandler = e => {
 		e.preventDefault()
 		console.log(this.state)
+        const auth = Cookies.get('Token');
+		console.log(auth)
 		axios
-			.put('http://localhost:8080/api/user/update', this.state)
+			.put('http://localhost:8080/api/user/update', this.state, {
+                headers: {
+                  'Authorization': `${auth}` 
+                }})
 			.then(response => {
-				console.log(response)
+                const id = localStorage.getItem("id");
+				return window.location = `/profil/${id}`;   
 			})
-			.catch(error => {
-				let message = document.querySelector(".passwordError")
-			message.innerHTML = "Mot de passe ";
+			.catch(err => {
+                console.log(err.reponse);
+                let message = document.querySelector(".passwordError")
+                message.innerHTML = `${err.response.data.message}`;
 			})
 	}
 
-    renderCard = () => {
-        return this.state.items.map((item, index) => {
-            return (
-                 
-
-                <div className="card mb-3" key={index}>
-                    <div className="card-body">
-                        <h2>{item.email}</h2>
-                        <hr />
-                        <p>
-                            Tu as {item.pseudo} ans.
-                        </p>
-                        <p>
-                            Tu vis à {item.job}.
-                        </p>
-                        <p>
-                            Tu vis à {item.ville}.
-                        </p>
-                    </div>
-                </div>
-            )
-        })
-    }
+    
 
     render() {
         return (
-            <div className="card-position">	
+            <div >	
      <form className="card-form" onSubmit={this.submitHandler}>
          
          <div>
          Email
+         <br />
              <input
                  type="text"
                  name="email"
-                 className="email"
+                 className="form-modif"
                  
                  onChange={this.onChange}
                  value={this.state.nom}
@@ -87,10 +72,11 @@ export default class FormInputs extends Component {
          <br />
          <div>
          Pseudo
+         <br />
              <input
                  type="text"
                  name="pseudo"
-                 className="pseudo"
+                 className="form-modif"
                  onChange={this.onChange}
                                     value={this.state.nom}
                  
@@ -103,42 +89,49 @@ export default class FormInputs extends Component {
              <input
                  type="password"
                  name="password"
-                 className="pseudo"
+                 className="form-modif"
                  onChange={this.onChange}
                                     value={this.state.nom}
                  
              />
-             <div className="passwordError"></div>
+             
          </div>
-         <br />
          <div>
-         Job
+         <br />
+         <label htmlFor="password">Emploi</label>
+          <br />
              <input
                  type="text"
-                 name="job"
-                 className="email"
+                 name="Emploi"
+                 className="form-modif"
                  onChange={this.onChange}
                                     value={this.state.nom}
                  
              />
+             
          </div>
-         <br />
          <div>
-         Ville
+         <br />
+         <label htmlFor="password">Ville</label>
+          <br />
              <input
                  type="text"
-                 name="ville"
-                 className="email"
+                 name="Ville"
+                 className="form-modif"
                  onChange={this.onChange}
                                     value={this.state.nom}
                  
              />
+             
          </div>
-         <br />
-         <div className="passwordError"></div>
-         <input className="submit-button" type="submit" value="Enregistrer modifications" />
+         <br/>
+ <div className="passwordError"></div>
+ <br />
+         
+        
+         <input className="delete-button" type="submit" value="Enregistrer modifications" />
      </form>
-     {this.renderCard()}
+     
  </div>
                 
             

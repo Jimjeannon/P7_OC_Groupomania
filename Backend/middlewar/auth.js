@@ -1,33 +1,35 @@
 
 // Utulisation du package jsonwebtoken
 const jwt = require('jsonwebtoken');
-
+const dbc = require("../server/database");
+const db = dbc.getDB();
 const dotenv = require ("dotenv");
 require('dotenv').config();
+
 //Authentification user avant d'autoriser l'envoi de ses reequêtes
 
 module.exports = (req, res, next) => {
-    //Verification des erreurs avec try et catch 
-    try {
+  try {
+     
+    if (req.headers.authorization) {
 
-        // Verification erreur du header autorisation
-        const token = req.headers.authorization.split(' ')[1];
-
-        // On veut verifier le token 
-        const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
-
-        //Recuperer le userid 
-        const id = decodedToken.id;
-        req.auth = { id };
-        // Si l'id n'est pas identique on ne veut pas retourner la requete 
-        if (req.body.id && req.body.id !== id) {
-            throw 'Use ID non valable !';
-        } else {
-            next();
+      const  token  = req.headers.authorization;
+      
+      const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
+      
+      const  id  = decodedToken.id;
+      
+      const sql = `SELECT id FROM users WHERE id = ${id}`;
+      db.query(sql, (err, result) => {
+        if (err) {
+            res.status(400).json({ message: 'Unauthorized request!' });
+          }
+        else {
+          next(); 
         }
-    } catch {
-        res.status(401).json({
-            error: new Error('Requête non authentifiée!')
-        });
+      });
     }
+  } catch (error)  {
+    res.status(400).json({ error: error });
+  }
 };

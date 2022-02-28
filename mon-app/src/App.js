@@ -1,21 +1,20 @@
 
 import {Routes, Route} from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { UidContext } from "./components/Context";
-import Profil from "./pages/profil"
+import Profil from "./pages/profile"
 import Home from "./pages/home"
+
+
 function App() {
     return (
          <div className="App">
-              
-        <Routes>
-     <Route path="/" element={<Profil/>} />
-    <Route path="/home" element={<Home/>}/>
-        
-    </Routes>
+                <Routes>  
+                     <Route path="/" element= {<Home/>}/>
+                    <Route path="/profil/:id" element={<Profil/>}/>
+               </Routes>
          </div>
-    );        
-}
+           );        
+}  
 
 export default App
    

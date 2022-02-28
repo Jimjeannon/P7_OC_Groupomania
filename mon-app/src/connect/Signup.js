@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import '../App.css';
-
+import Cookies from 'js-cookie'
 
 class PostForm extends Component {
 	constructor(props) {
@@ -24,11 +24,13 @@ class PostForm extends Component {
 		axios
 			.post('http://localhost:8080/api/user/signup', this.state)
 			.then(response => {
-				window.location = "/home";
-			})
-			.catch(error => {
+				window.location = "/";
 				let message = document.querySelector(".passwordError")
-			message.innerHTML = "Mot de passe ";
+			message.innerHTML = `${response.data.message}`;
+			})
+			.catch(err => {
+				let message = document.querySelector(".passwordError")
+			message.innerHTML = `${err.response.data.message}`;
 			})
 	}
 
@@ -40,6 +42,7 @@ class PostForm extends Component {
 					
 					<div>
 					Email
+					<br />
 						<input
 							type="text"
 							name="email"
@@ -48,12 +51,14 @@ class PostForm extends Component {
 							onChange={this.changeHandler}
 						/>
 					</div>
+					<br />
 					<div>
 					Pseudo
+					<br />
 						<input
 							type="text"
 							name="pseudo"
-							className="pseudo"
+							className="email"
 							value={pseudo}
 							onChange={this.changeHandler}
 						/>
@@ -66,13 +71,18 @@ class PostForm extends Component {
 							type="password"
 							name="password"
 							className="pseudo"
+							className="email"
 							value={password}
 							onChange={this.changeHandler}
 						/>
+						<br/>
+						<p>En continuant, vous acceptez les Conditions d'utilisation </p>
+						<input type="checkbox" className="checkbox"></input>
+						
 						<div className="passwordError"></div>
 					</div>
 					<br />
-					<input className="submit-button" type="submit" value="Se connecter" />
+					<input className="submit-button" type="submit" value="S'inscrire" />
 				</form>
 			</div>
 		)
