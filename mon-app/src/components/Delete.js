@@ -40,9 +40,9 @@ export default class Delete extends Component {
                 window.location = '/';
                 handleRemoveCookie()
 			})
-			.catch(error => {
+			.catch(err => {
 				let message = document.querySelector(".passwordError")
-			message.innerHTML = "Mot de passe ";
+                message.innerHTML = `${err.response.data.message}`;
 			})
 	}
 
@@ -82,7 +82,7 @@ export default class Delete extends Component {
              />
              
          </div>
-         
+         <div className="passwordError"></div>
          <br />
         
          <input className="delete-button" type="submit" value="Suprimer profil" />

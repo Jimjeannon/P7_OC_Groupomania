@@ -1,7 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component} from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import Alert from '../feedback/alert'
 class LoginForm extends Component {
+
+	
+
 	constructor(props) {
 		super(props)
 
@@ -23,11 +27,15 @@ class LoginForm extends Component {
 		axios
 			.post('http://localhost:8080/api/user/login', this.state)
 			.then(response => {
+				const pseudo = response.data.pseudo
 				const id = response.data.id
+				localStorage.setItem("pseudo", JSON.stringify(pseudo));
 				localStorage.setItem("id", JSON.stringify(id));
 				window.location = `/profil/${id}`;
 				Cookies.set('Token', response.data.token,  { expires: 7, path: '', })
 				console.log(response.data.id)
+				
+				
 			})
 			.catch(err => {
 			let message = document.querySelector(".passwordError")
@@ -41,6 +49,7 @@ class LoginForm extends Component {
 		const { email, password } = this.state
 		return (
 	<div className="card-position">	
+	
  <form className="card-form" onSubmit={this.submitHandler}>
  <label htmlFor="email">Email</label>
  <br />

@@ -2,6 +2,7 @@
 const multer = require('multer');
 
 
+
 // repertoire des MIME_TYPES
 const MIME_TYPES = {
     'image/jpg': 'jpg',
@@ -15,7 +16,8 @@ const storage = multer.diskStorage({
     
     // destination de stockage fichier 
     destination: (req, file, callback) => {
-        callback(null, 'upload');
+        callback(null, 'images');
+        
     },
 
     // Modification nom du fichier 
@@ -28,4 +30,4 @@ const storage = multer.diskStorage({
 
 module.exports = multer({
     storage: storage
-}).single('upload');
+}).single('image');

@@ -3,6 +3,8 @@ background-color: #f1f4fa;
 font-family:sans-serif;
 }
 
+input[type='file'] { color: transparent; }
+
 .logo-profile{ 
     position: absolute;
     width: 200px;
@@ -185,4 +187,147 @@ font-weight: bold;
     line-height: 48px;
     padding: 0 16px;
     width: 332px;
+}
+
+/* New post bar style */
+
+.message-perso{
+    border-bottom: 1px solid gray;
+}
+
+#new-post{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border: 1px solid#dbdbdb;
+    background-color: #E6EFFD;
+}
+
+.main-post{
+    display : flex;
+    justify-content: center;  
+}
+
+.post-bar-container{
+    display : flex;
+    align-items : center;
+    justify-content: center;
+    justify-content: space-between;
+    border: 1px solid#dbdbdb;
+    border-radius: 8px;
+    background-color:white;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    padding: 8px;
+    width: 80%;
+}
+
+.new-post{
+    border-radius: 4px;
+    margin-left: 30px;
+    width: 90%;
+    background-color: #f9f9fa;
+    border: 1px solid #dbdbdb; 
+}
+
+.css-hip9hq-MuiPaper-root-MuiAppBar-root {
+    background-color: #111;
+}
+
+/* New post card style */
+
+.card-post{
+   
+    margin-bottom: 60px;
+    border: 1px solid #dbdbdb;
+    border: 1px solid rgba(var(--b6a,219,219,219),1);
+    border-radius: 3px;
+    background-color: #fff;
+    
+}
+
+.fa-trash{
+    cursor: pointer;
+    right: 30px;
+    position: absolute;
+}
+
+.img-post{
+    width: 100%;
+    object-fit: cover;
+}
+
+.header-card{
+    display: flex;
+    align-items : center;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.pseudo{
+    margin-left : 20px;
+    font-weight: bolder;
+    Text-Decoration: None ;
+    color: rgb(27, 26, 26);
+}
+
+.icon-action{
+    display: flex;
+    justify-content: space-between; 
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.com-post{
+    margin-left: 20px;
+}
+
+
+.home-btn{
+    position: absolute;
+    cursor: pointer;
+    display : flex;
+    top: 20px ;
+ right: 120px ;
+}
+
+
+/* Barre pour creer un post  */
+
+
+
+.card-body{
+    position: absolute;
+    text-align: center;
+    align-items: center;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    box-sizing: border-box;
+    margin: 40px 0 0;
+    padding: 20px 0 28px;
+    width: 400px;
+}
+
+.form-group-input{
+    font-size: 17px;
+    border-radius: 6px ;
+    padding: 14px 16px;
+    width: 330px;
+    border: 1px solid#727272;
+    background-color: #e6effd;   
+}
+
+.form-group-input-img{
+    font-size: 17px;
+    border-radius: 6px ;
+    padding: 14px 16px;
+    width: 330px;
+    align-items: center;
 }

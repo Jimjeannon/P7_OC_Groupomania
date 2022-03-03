@@ -3,12 +3,17 @@ import "../index";
 import Login from "../connect/Login";
 import Signup from "../connect/Signup";
 import Logo from "../logos/icon-left-font-monochrome-black.png";
-
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Profil() {
   const [signUpModal, setSignUpModal] = useState(false);
   const [signInModal, setSignInModal] = useState(true);
-
+  const [open, setOpen] = React.useState(true);
 
 
   const handleModals = (e) => {
@@ -40,11 +45,13 @@ export default function Profil() {
           Se connecter
         </li>
       </ul>
+      <>
+    
+  </>
       {signUpModal && <Signup />}
         {signInModal && <Login />}
         
     </div>
-    
   </div>
   )
 }

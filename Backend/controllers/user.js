@@ -39,7 +39,7 @@ exports.delete = (req, res, next) => {
     const id = req.params.id;
     console.log(req.params.id)
     let sqlDelete = `DELETE FROM users WHERE id='${id}'`;
-    db.query(sqlDelete, id, (err, result) => {
+    db.query(sqlDelete, (err, result) => {
         if (err) {
             return res.status(404).json({
                 message: "Supression erreur"
@@ -105,6 +105,7 @@ exports.login = (req, res, next) => {
                     })
                 } else {
                     res.status(200).json({
+                        pseudo: result['0'].pseudo,
                         id: result['0'].id,
                         token: jwt.sign({
                                 id: result['0'].id

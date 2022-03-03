@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from "axios";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
+
 export default class FormInputs extends Component {
     
     state = {

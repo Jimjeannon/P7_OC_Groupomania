@@ -3,20 +3,25 @@ import UploadImg from "../components/UpImg";
 import Update from "../components/Update"
 import Delete from "../components/Delete"
 import axios from "axios";
-
-
+import Cookies from "js-cookie";
+import avatar from "../logos/avatar.jpg"
 
 
 const Profile = props => {
 
- 
-
+  const [imgSrc, setImgSrc] = useState("")
+console.log(imgSrc)
   let urlElements = window.location.href.split('/');
   let id = urlElements[4]
- 
+  const auth = Cookies.get('Token');
 		axios
-			.get(`http://localhost:8080/api/user/profile/${id}`)
+			.get(`http://localhost:8080/api/user/profile/${id}`, {
+        headers: {
+          'Authorization': `${auth}` 
+        }})
 			.then(response => {
+
+setImgSrc(response.data[0].imageUrl)
 
 
         const email = document.getElementById('emailProfile')
@@ -32,7 +37,7 @@ const Profile = props => {
         job.innerHTML = response.data[0].Emploi;
 			})
 			.catch(error => {
-			console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+			return console.log(error)
 			})
 	
 
@@ -54,22 +59,24 @@ const Profile = props => {
         
         </div>
         <div >
+          <img src={`${imgSrc}`} alt="profile_picture" id="img-profile" />
         < UploadImg/>
         </div>
            
             
             <h1 id="pseudoProfile"></h1>
             <div className="info-profile"> 
+            
             <i  className="fas fa-user"></i>
-            <div id="jobProfile" className="info-profile"></div>
+            <div id="jobProfile" className="info-profile">Job</div>
  </div>
             <div className="info-profile">  
             <i  className="fas fa-map-marker-alt"></i>
-            <div id="cityProfile" className="info-profile"></div>
+            <div id="cityProfile" className="info-profile">Ville</div>
 </div>
             <div className="info-profile">  
             <i id="i" className="fas fa-envelope"></i>
-            <div className="info-profile" id="emailProfile" value='text'></div>
+            <div className="info-profile" id="emailProfile" value='text'>Email</div>
 </div>
             <input  type="submit" value="Modifier" onClick={handleModals}  id="modifier" className="btn-profil"/>
             <input  type="submit" value="Suprimer" onClick={handleModals}  id="suprimer" className="btn-profil"/>

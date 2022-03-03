@@ -1,0 +1,23 @@
+import Nav from '../social/Navigation'
+import React from 'react';
+import Newpost from '../social/Newpost'
+import Cardpost from '../social/Cardpost'
+import PropTypes from 'prop-types';
+import Allpost from '../social/Allpost'
+
+const main = props => {
+    return (
+        <div >
+        < Nav />
+        < Newpost/>
+        <Cardpost />
+        <Allpost />
+        </div>
+    );
+};
+
+main.propTypes = {
+    
+};
+
+export default main;

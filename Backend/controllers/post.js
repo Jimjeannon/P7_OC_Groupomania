@@ -2,11 +2,10 @@ const dbc = require("../server/database");
 const db = dbc.getDB();
 
 exports.publish = (req, res, next) => {
-  const  poster_id = req.body.poster_id;
-  const name_poster = req.body.name_poster;
+  const  user_id = req.params.id;
+  const name_poster = req.body.nom;
   const message = req.body.message;
-  console.log(name_poster)
-  let sqlPublish = `INSERT INTO post ( poster_id, message, name_poster ) VALUES ( '${poster_id}', '${message}', '${name_poster}' )`;
+  let sqlPublish = `INSERT INTO post ( user_id, message, name_poster ) VALUES ( '${user_id}', '${message}', '${name_poster}' )`;
          
   db.query(sqlPublish, function (err, result) {
       if (err) {
@@ -57,16 +56,16 @@ exports.deletePublish = (req, res, next) => {
 };
 
 exports.allPublish = (req, res, next) => {
-    const sqlAll = `SELECT message, image, video, name_poster FROM post `
+    const sqlAll = `SELECT message, image, video, id, name_poster FROM post `
     db.query(sqlAll, (err, result) => {
         if (err) {
             return res.status(404).json({
               message: "tout les post erreur"
           });
         }else {
-        res.status(200).json({
-            message: "Voila les post !"
-        });
+         return res.status(200).json(
+            result
+        );
     }
     })
 };
