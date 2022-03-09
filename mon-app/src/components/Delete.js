@@ -26,7 +26,7 @@ export default class Delete extends Component {
         let urlElements = window.location.href.split('/');
         let id = urlElements[4]
         const auth = Cookies.get('Token');
-        console.log(auth)
+      
 		axios
 			.delete(`http://localhost:8080/api/user/delete/${id}`,{
                 headers: {

@@ -22,6 +22,7 @@ const auth = Cookies.get('Token');
 const file = this.state.file
 const id = localStorage.getItem("id");
 let formdata = new FormData()
+console.log(this.state)
 formdata.append('image', file)
   axios({
     url: `http://localhost:8080/api/user/image/${id}`,
@@ -42,7 +43,7 @@ console.log(res.data);
   <form >
     <div className="info-profile">
       <label></label>
-      <input type="file" name="file" onChange={(e)=>this.handleFile(e)}/>
+      <input type="file" accept="image/*" name="file" onChange={(e)=>this.handleFile(e)}/>
     </div>
     <button type="button" onClick={(e)=>this.handleUpload(e)}>Upload</button>
   </form>

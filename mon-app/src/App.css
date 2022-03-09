@@ -3,7 +3,7 @@ background-color: #f1f4fa;
 font-family:sans-serif;
 }
 
-input[type='file'] { color: transparent; }
+/* input[type='file'] { color: transparent; } */
 
 .logo-profile{ 
     position: absolute;
@@ -191,6 +191,13 @@ font-weight: bold;
 
 /* New post bar style */
 
+.close{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
 .message-perso{
     border-bottom: 1px solid gray;
 }
@@ -224,6 +231,7 @@ font-weight: bold;
 }
 
 .new-post{
+
     border-radius: 4px;
     margin-left: 30px;
     width: 90%;
@@ -237,8 +245,14 @@ font-weight: bold;
 
 /* New post card style */
 
+.card-position{
+    display : flex;
+    justify-content:center;
+}
+
 .card-post{
-   
+    align-items: center;
+    width: 50%;
     margin-bottom: 60px;
     border: 1px solid #dbdbdb;
     border: 1px solid rgba(var(--b6a,219,219,219),1);
@@ -249,8 +263,8 @@ font-weight: bold;
 
 .fa-trash{
     cursor: pointer;
-    right: 30px;
-    position: absolute;
+    left: 450px;
+    position: relative;
 }
 
 .img-post{
@@ -302,6 +316,7 @@ font-weight: bold;
 
 
 .card-body{
+    top: 200px;
     position: absolute;
     text-align: center;
     align-items: center;

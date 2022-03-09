@@ -13,8 +13,8 @@ const multer = require('../middlewar/multer');
 // Creation des routes user avec les middleware
 
 router.post('/signup',validEmail, validPass, userCtrl.signup);
-router.post('/login', userCtrl.login);
-router.delete('/delete/:id',auth, userCtrl.delete); {}
+router.post('/login',validEmail, validPass, limitTry.limiter, userCtrl.login);
+router.delete('/delete/:id', userCtrl.delete); 
 router.put('/update', userCtrl.update);
 router.get('/profile/:id',auth, userCtrl.getOneUser);
 router.post('/image/:id',multer,auth, img.uploadImage);

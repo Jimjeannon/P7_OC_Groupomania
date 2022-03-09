@@ -37,13 +37,14 @@ exports.signup = (req, res, next) => {
 
 exports.delete = (req, res, next) => {
     const id = req.params.id;
-    console.log(req.params.id)
-    let sqlDelete = `DELETE FROM users WHERE id='${id}'`;
+    
+    let sqlDelete = `DELETE FROM users WHERE id ='${id}'`;
+    
     db.query(sqlDelete, (err, result) => {
         if (err) {
             return res.status(404).json({
                 message: "Supression erreur"
-            });
+            }); 
         } else {
             res.status(200).json({
                 message: "Utilisateur suprimé !"
@@ -63,9 +64,9 @@ exports.update = (req, res, next) => {
             let email = req.body.email;
 
             const newProfil = profil.replace(/","/g, '",').replace(/":"/g, '="').replace('{"', '').replace('}', '').replace(/"/g, "'");
+           
 
-
-            let sqlUpdate = `UPDATE users SET ${newProfil}, password= '${password}' WHERE email='${email}' `;
+            let sqlUpdate = `UPDATE users SET ${newProfil}, password='${password}' WHERE email='${email}' `;
 
 
             db.query(sqlUpdate, (err, result) => {
@@ -95,14 +96,16 @@ exports.login = (req, res, next) => {
         if (err) {
             return res.status(404).json({
                 message: "Identification erreur"
-            });
-        };
-        bcrypt.compare(password, result[0].password)
+            });  
+        }; 
+
+        
+        bcrypt.compare(password, result[0].password) 
             .then(valid => {
                 if (!valid) {
                     res.status(400).json({
                         message: "Mot de passe invalide",
-                    })
+                    })  
                 } else {
                     res.status(200).json({
                         pseudo: result['0'].pseudo,
@@ -128,7 +131,7 @@ exports.login = (req, res, next) => {
 exports.getOneUser = (req, res, next) => {
     const id = req.params.id;
 
-    const sqlGetUser = `SELECT * FROM users WHERE id = '${id}' `;
+    const sqlGetUser = `SELECT email, pseudo, imageUrl, id, Emploi, Ville FROM users WHERE id = '${id}' `;
     db.query(sqlGetUser, [id], function(err, result) {
         if (err) {
             return res.status(404).json({

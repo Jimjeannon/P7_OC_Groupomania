@@ -7,19 +7,17 @@ import Cookies from "js-cookie";
 
 export default class FormInputs extends Component {
 
+    
+
   imageHandler = (e) => {
-        const reader = new FileReader();
-        reader.onload = () =>{
-          if(reader.readyState === 2){
-            const id = localStorage.getItem("id");
-            this.setState({profileImg: reader.result})
-          }
-        }
-        reader.readAsDataURL(e.target.files[0])
+    console.log(e.target.files[0], "##################");
+
+    let file = e.target.files[0]
+  
+    this.setState({file: file})
       };
 
     state = {
-        nom: '',
         message: '',
         image: '',
         items: []
@@ -39,64 +37,43 @@ export default class FormInputs extends Component {
         
         event.preventDefault();
         this.setState({
-            nom: '',
             message: '',
             image: '',
             items: [...this.state.items, { nom: pseudo, message: this.state.message, image: this.state.image }]
         });
         const auth = Cookies.get('Token');
         const id = localStorage.getItem("id");
-		console.log(auth)
-		axios
-			.post(`http://localhost:8080/api/post/publish/${id}`, this.state, {
-                headers: {
-                  'Authorization': `${auth}` 
-                }})
-			.then(response => {
-              return console.log("post ok")  
-			})
-			.catch(err => {
-               return console.log("post err ");
-			})
-    }
+		const file = this.state.file
+        let formdata = new FormData()
+        formdata.append('image', file)
+        formdata.append('message', this.state.message)
+        formdata.append('nom', pseudo)
+		axios({
+    url: `http://localhost:8080/api/post/publish/${id}`,
+    method: 'POST',
+    headers: {
+      authorization: `${auth}`
+    },
+    data: formdata,
+     // pass here
+  }).then((res)=>{
+console.log(res.data);
+window.location = `/main/${id}`;
+  })
 
-    renderCard = () => {
-        return this.state.items.map((item, index) => {
-        const newPseudo  = localStorage.getItem("pseudo");
-        const pseudo = newPseudo.replace(/"/g, "");
-            return (
-                
-                <div className="card-mb-3" key={index}>
-                      <div className="card-post">
-           
-           <div className="header-card">
-                
-     <Stack direction="row" spacing={2}>
-     <Avatar alt={pseudo} src="./logos/avatar.jpg" />
-   </Stack>
-   <a class="pseudo" href="" tabindex="0">{item.nom}</a>
-    <i class="fa fa-trash"></i>
-   </div>
-  
-   <img className="img-post" src={item.image} alt="logo groupomania"></img>
-   
-   <div className="icon-action">
-   <i class="fa fa-comment"></i>
-   <i class="fa fa-heart"></i>
-   </div>
-   <div>
-   <a class="pseudo" href="" tabindex="0">{item.nom}</a>
-   <div class="com-post">{item.message}</div>
-   </div>
-       </div>
-            </div>
-            )
-        })
-    }
+}
+toggle() {
+    const id = localStorage.getItem("id");
+    window.location = `/main/${id}`;
+}
+ 
     render() {
         return ( 
-                    <div className="card-body">
+                    <div className="card-body" id="new-post1">
+                        
+                      <i onClick={this.toggle} id="close" class="fa fa-ban close"></i>
                         <h1>Publication</h1>
+                        
                         <form onSubmit={this.onSubmit}>
 
 
@@ -111,20 +88,16 @@ export default class FormInputs extends Component {
                                 />
                                 
                             </div>
-                           
-                            <div className="form-group">
-                                <label htmlFor="image">Image</label>
+                            <br />
+                            
+                                <label htmlFor="image"></label>
+                                <input type="file" accept="image/*" name="image" id="input" onChange={(e)=>this.imageHandler(e)} />
                                 
-                                <input type="file" className="form-group-input" name="image" id="input" onChange={this.imageHandler} />
-                                
-                            </div>
+                            
 
                             <button className="btn btn-primary btn-block">Post</button>
                         </form>
 
-                    
-                
-                {this.renderCard()}
             </div>
         )
     }

@@ -10,7 +10,6 @@ const main = props => {
         <div >
         < Nav />
         < Newpost/>
-        <Cardpost />
         <Allpost />
         </div>
     );

@@ -15,10 +15,11 @@ module.exports = (req, res, next) => {
       
       const urlId = req.params.id;
       const  token  = req.headers.authorization;
-      
+     
       const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
       
       const  id  = decodedToken.id;
+      
       if (urlId == id){
          const sql = `SELECT id FROM users WHERE id = ${id}`;
       db.query(sql, (err, result) => {

@@ -59,7 +59,7 @@ setImgSrc(response.data[0].imageUrl)
         
         </div>
         <div >
-          <img src={`${imgSrc}`} alt="profile_picture" id="img-profile" />
+          <img src={imgSrc ? `${imgSrc}` : `${avatar}` } alt="profile_picture" id="img-profile" />
         < UploadImg/>
         </div>
            
@@ -68,6 +68,7 @@ setImgSrc(response.data[0].imageUrl)
             <div className="info-profile"> 
             
             <i  className="fas fa-user"></i>
+            
             <div id="jobProfile" className="info-profile">Job</div>
  </div>
             <div className="info-profile">  

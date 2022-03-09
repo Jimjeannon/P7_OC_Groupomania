@@ -24,11 +24,13 @@ export default function Post() {
        
          <div className="main-post"> 
            <div  className="post-bar-container">  
+           
            <Stack direction="row" spacing={2}>
       <Avatar alt={pseudo} src="./logos/avatar.jpg" />
     </Stack>
     <p className="message-perso"> Quoi de neuf, {pseudo} ?</p>
     <button onClick={handleModals} id="new-post">Post</button>
+    
         </div> 
         {newPostModal && <Infopost />}
         </div> 

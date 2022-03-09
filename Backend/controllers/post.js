@@ -1,22 +1,44 @@
 const dbc = require("../server/database");
 const db = dbc.getDB();
 
-exports.publish = (req, res, next) => {
+exports.publish = (req, res, next) => {  
+    if (req.file) {  
   const  user_id = req.params.id;
   const name_poster = req.body.nom;
   const message = req.body.message;
-  let sqlPublish = `INSERT INTO post ( user_id, message, name_poster ) VALUES ( '${user_id}', '${message}', '${name_poster}' )`;
+  const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+  let sqlPublish = `INSERT INTO post ( user_id, message, name_poster, image ) VALUES ( '${user_id}', '${message}', '${name_poster}', '${image}')`;
          
   db.query(sqlPublish, function (err, result) {
       if (err) {
           return res.status(404).json({
             message: "Publication erreur"
         });
-      };
-      res.status(200).json({
+      }else{
+          res.status(200).json({
           message: "Publication valide !"
       });
+      }
+      
   }); 
+} else{
+    const  user_id = req.params.id;
+    const name_poster = req.body.nom;
+    const message = req.body.message; 
+    let sqlPublish = `INSERT INTO post ( user_id, message, name_poster ) VALUES ( '${user_id}', '${message}', '${name_poster}')`;
+    db.query(sqlPublish, function (err, result) {
+        if (err) {
+            return res.status(404).json({
+              message: "Publication erreur"
+          });
+        }else{
+            res.status(200).json({
+            message: "Publication valide !"
+        });
+        }
+        
+    });
+}
 };
 
 exports.updateOne = (req, res, next) => {
@@ -41,8 +63,9 @@ db.query(sqlUpdate, (err, result) => {
 };
 
 exports.deletePublish = (req, res, next) => {
-    let poster_id = req.body.poster_id;
-    let sqlDelete = `DELETE FROM post WHERE poster_id='${poster_id}'`;
+    let poster_id = req.params.id;;
+    console.log(poster_id);
+    let sqlDelete = `DELETE FROM post WHERE user_id='${poster_id}'`;
     db.query(sqlDelete, (err, result) => {
         if (err) {
             return res.status(404).json({
@@ -56,7 +79,7 @@ exports.deletePublish = (req, res, next) => {
 };
 
 exports.allPublish = (req, res, next) => {
-    const sqlAll = `SELECT message, image, video, id, name_poster FROM post `
+    const sqlAll = `SELECT * FROM post ORDER BY date DESC LIMIT 5 `
     db.query(sqlAll, (err, result) => {
         if (err) {
             return res.status(404).json({

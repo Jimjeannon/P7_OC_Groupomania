@@ -38,9 +38,10 @@ class LoginForm extends Component {
 				
 			})
 			.catch(err => {
+				console.log(err.response.data.message)
 			let message = document.querySelector(".passwordError")
 			message.innerHTML = `${err.response.data.message}`;
-			message.innerHTML = `${err.response.data}`;
+			
 			})
 			
 	}
