@@ -4,10 +4,11 @@ import Stack from '@mui/material/Stack';
 import image from '../logos/chat.jpg';
 import axios from "axios";
 import Cookies from "js-cookie";
-
+import Loading from "../feedback/progress"
+import { useHistory } from 'react-router-dom';
 export default class FormInputs extends Component {
 
-    
+   
 
   imageHandler = (e) => {
     console.log(e.target.files[0], "##################");
@@ -59,11 +60,13 @@ export default class FormInputs extends Component {
   }).then((res)=>{
 console.log(res.data);
 window.location = `/main/${id}`;
+
   })
 
 }
 toggle() {
     const id = localStorage.getItem("id");
+    
     window.location = `/main/${id}`;
 }
  
@@ -95,7 +98,11 @@ toggle() {
                                 
                             
 
-                            <button className="btn btn-primary btn-block">Post</button>
+                            <button className="btn btn-primary btn-block" onClick={() => {
+   <Loading />
+}}>
+    
+    Post</button>
                         </form>
 
             </div>

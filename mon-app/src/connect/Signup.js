@@ -71,7 +71,6 @@ class PostForm extends Component {
 							type="password"
 							name="password"
 							className="pseudo"
-							className="email"
 							value={password}
 							onChange={this.changeHandler}
 						/>

@@ -65,7 +65,7 @@ db.query(sqlUpdate, (err, result) => {
 exports.deletePublish = (req, res, next) => {
     let poster_id = req.params.id;;
     console.log(poster_id);
-    let sqlDelete = `DELETE FROM post WHERE user_id='${poster_id}'`;
+    let sqlDelete = `DELETE FROM post WHERE id='${poster_id}'`;
     db.query(sqlDelete, (err, result) => {
         if (err) {
             return res.status(404).json({

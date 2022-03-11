@@ -76,6 +76,19 @@ export default function PrimarySearchAppBar() {
     handleMobileMenuClose();
   };
 
+  const handleMenuClick = () => {
+    const id = localStorage.getItem("id");
+    setAnchorEl(
+    window.location = `/profil/${id}`);
+    handleMobileMenuClose();
+  };
+
+  const handleMenuLogout = () => {
+    setAnchorEl(
+    window.location = `/`);
+    handleMobileMenuClose();
+  };
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -97,8 +110,8 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClick}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -119,26 +132,8 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={1} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 1 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={1} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
+    
+   
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -187,18 +182,14 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
+             
             </IconButton>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={1} color="error">
-                <NotificationsIcon />
-              </Badge>
+             
             </IconButton>
             <IconButton
               size="large"

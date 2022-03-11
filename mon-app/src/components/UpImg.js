@@ -43,7 +43,7 @@ console.log(res.data);
   <form >
     <div className="info-profile">
       <label></label>
-      <input type="file" accept="image/*" name="file" onChange={(e)=>this.handleFile(e)}/>
+      <input type="file" accept="image/*"name="file" onChange={(e)=>this.handleFile(e)}/>
     </div>
     <button type="button" onClick={(e)=>this.handleUpload(e)}>Upload</button>
   </form>
