@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api/user', userRoutes);
+app.use('/api/like', postRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', comRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));

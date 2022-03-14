@@ -199,7 +199,8 @@ font-weight: bold;
 }
 
 .message-perso{
-    border-bottom: 1px solid gray;
+    color: rgb(128, 126, 126);
+    border-bottom: 1px solid rgb(175, 174, 174);
 }
 
 #new-post{
@@ -321,8 +322,8 @@ font-weight: bold;
 
 
 .card-body{
-    top: 200px;
-    position: absolute;
+    position: fixed;
+    top: 20%;
     text-align: center;
     align-items: center;
     background-color: #fff;
@@ -333,6 +334,8 @@ font-weight: bold;
     margin: 40px 0 0;
     padding: 20px 0 28px;
     width: 400px;
+    
+    
 }
 
 .form-group-input{
@@ -365,3 +368,5 @@ font-weight: bold;
   .form-img__img-preview{
       width: 100px;
   }
+
+

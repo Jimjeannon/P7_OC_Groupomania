@@ -6,7 +6,7 @@ const database = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     database : "groupomania"
-  });
+  });    
   
  database.connect(function(err) {
     if (err) throw err;

@@ -1,111 +1,110 @@
-import React, { Component } from 'react'
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
-import image from '../logos/chat.jpg';
+import React, { Component } from "react";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import image from "../logos/chat.jpg";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Loading from "../feedback/progress"
-import { useHistory } from 'react-router-dom';
+import Loading from "../feedback/progress";
+import { useHistory } from "react-router-dom";
 export default class FormInputs extends Component {
-
-   
-
   imageHandler = (e) => {
     console.log(e.target.files[0], "##################");
 
-    let file = e.target.files[0]
-  
-    this.setState({file: file})
-      };
+    let file = e.target.files[0];
 
-    state = {
-        message: '',
-        image: '',
-        items: []
-    }
+    this.setState({ file: file });
+  };
 
-    onChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-        // console.log(this.state.nom);
+  state = {
+    message: "",
+    image: "",
+    items: [],
+  };
 
-    }
+  onChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+    // console.log(this.state.nom);
+  };
 
-    onSubmit = (event) => {
-        const newPseudo  = localStorage.getItem("pseudo");
-        const pseudo = newPseudo.replace(/"/g, "");
-        
-        event.preventDefault();
-        this.setState({
-            message: '',
-            image: '',
-            items: [...this.state.items, { nom: pseudo, message: this.state.message, image: this.state.image }]
-        });
-        const auth = Cookies.get('Token');
-        const id = localStorage.getItem("id");
-		const file = this.state.file
-        let formdata = new FormData()
-        formdata.append('image', file)
-        formdata.append('message', this.state.message)
-        formdata.append('nom', pseudo)
-		axios({
-    url: `http://localhost:8080/api/post/publish/${id}`,
-    method: 'POST',
-    headers: {
-      authorization: `${auth}`
-    },
-    data: formdata,
-     // pass here
-  }).then((res)=>{
-console.log(res.data);
-window.location = `/main/${id}`;
+  onSubmit = (event) => {
+    const newPseudo = localStorage.getItem("pseudo");
+    const pseudo = newPseudo.replace(/"/g, "");
 
-  })
-
-}
-toggle() {
+    event.preventDefault();
+    this.setState({
+      message: "",
+      image: "",
+      items: [
+        ...this.state.items,
+        { nom: pseudo, message: this.state.message, image: this.state.image },
+      ],
+    });
+    const auth = Cookies.get("Token");
     const id = localStorage.getItem("id");
-    
+    const file = this.state.file;
+    let formdata = new FormData();
+    formdata.append("image", file);
+    formdata.append("message", this.state.message);
+    formdata.append("nom", pseudo);
+    axios({
+      url: `http://localhost:8080/api/post/publish/${id}`,
+      method: "POST",
+      headers: {
+        authorization: `${auth}`,
+      },
+      data: formdata,
+      // pass here
+    }).then((res) => {
+      console.log(res.data);
+      window.location = `/main/${id}`;
+    });
+  };
+  toggle() {
+    const id = localStorage.getItem("id");
     window.location = `/main/${id}`;
-}
- 
-    render() {
-        return ( 
-                    <div className="card-body" id="new-post1">
-                        
-                      <i onClick={this.toggle} id="close" class="fa fa-ban close"></i>
-                        <h1>Publication</h1>
-                        
-                        <form onSubmit={this.onSubmit}>
+  }
 
+  render() {
+    return (
+      <div className="card-body" id="new-post1">
+        <i onClick={this.toggle} id="close" class="fa fa-ban close"></i>
+        <h1>Publication</h1>
 
-                            <div className="form-group">
-                                <label htmlFor="message">Message</label>
-                                
-                                <input type="text"
-                                    className="form-group-input"
-                                    name="message"
-                                    onChange={this.onChange}
-                                    value={this.state.message}
-                                />
-                                
-                            </div>
-                            <br />
-                            
-                                <label htmlFor="image"></label>
-                                <input type="file" accept="image/*" name="image" id="input" onChange={(e)=>this.imageHandler(e)} />
-                                
-                            
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label htmlFor="message">Message</label>
 
-                            <button className="btn btn-primary btn-block" onClick={() => {
-   <Loading />
-}}>
-    
-    Post</button>
-                        </form>
+            <input
+              type="text"
+              className="form-group-input"
+              name="message"
+              onChange={this.onChange}
+              value={this.state.message}
+            />
+          </div>
+          <br />
 
-            </div>
-        )
-    }
+          <label htmlFor="image"></label>
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            id="input"
+            onChange={(e) => this.imageHandler(e)}
+          />
+
+          <button
+            className="btn btn-primary btn-block"
+            onClick={() => {
+              <Loading />;
+            }}
+          >
+            Post
+          </button>
+        </form>
+      </div>
+    );
+  }
 }

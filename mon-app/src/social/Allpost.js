@@ -5,27 +5,32 @@ import Stack from "@mui/material/Stack";
 import Delete from "../social/Deletepost";
 import Like from "../social/Like";
 import Updatepost from "../social/Updatepost";
+import Comments  from "./Comments";
+
+
 function Allposts() {
-  
   const [newPostModal, setUpPostModal] = useState(false);
+  const [newComModal, setUpComModal] = useState(false);
   const [post, setPost] = useState([]);
   const handleClick = () => alert("Clicked");
 
   const handleModals = (e) => {
     if (e.target.id === "update-post") {
-      
       setUpPostModal(true);
-    } 
+    }
   };
 
+  const commentModals = (e) => {
+    if (e.target.id === "comment-post") {
+      setUpComModal(true);
+    }
+  };
 
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/post/getAll`)
       .then((response) => {
         console.log(response.data);
-        
-
         return setPost(response.data);
       })
       .catch((error) => {
@@ -35,44 +40,44 @@ function Allposts() {
 
   const eventsList = post.map((event) => (
     <div key={event.id} className="card-position">
-      <div  className="card-post">
+      <div className="card-post">
         <div className="header-card">
-        
           <Stack direction="row" spacing={2}>
             <Avatar alt={event.name_poster} src="./logos/avatar.jpg" />
           </Stack>
-          
 
           <a className="pseudo" href="">
             {event.name_poster}
           </a>
-          <Delete className="trash" click={handleClick} idPost={event.id} />
-          <button onClick={handleModals} id="update-post">Update</button>
+          <div
+            onClick={() => {
+              if (window.confirm("Voulez-vous supprimer cet article ?")) {
+              }
+            }}
+          >
+            <Delete className="trash" click={handleClick} idPost={event.id} />
+          </div>
+          <button onClick={handleModals} id="update-post">
+            Update
+          </button>
         </div>
         {event.image ? (
-          <img
-            className="img-post"
-            
-            src={event.image}
-            alt="image post"
-          ></img>
-        ) : 
-          null
-        }
+          <img className="img-post" src={event.image} alt="image post"></img>
+        ) : null}
 
         <div className="icon-action">
-          <i className="fa fa-comment"></i>
-          <Like />
+          <i className="fa fa-comment" id="comment-post" onClick={commentModals} ></i>
+          <Like idPost={event.id} />
         </div>
-<div className="com-post">{event.message}</div>
+        <div className="com-post">{event.message}</div>
         <div>
-          <a className="date-post"  tabIndex="0">
-           Le {event.date.slice(5, 10)}
+          <a className="date-post" tabIndex="0">
+            Le {event.date.slice(5, 10)}
           </a>
-          
         </div>
       </div>
-      {newPostModal && <Updatepost idPost={event.id} />}
+      {newPostModal && <Updatepost />}
+      {newComModal && <Comments idPost={event.id}  />}
     </div>
   ));
   const loadMore = () => {

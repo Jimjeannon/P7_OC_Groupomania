@@ -79,7 +79,7 @@ exports.deletePublish = (req, res, next) => {
 };
 
 exports.allPublish = (req, res, next) => {
-    const sqlAll = `SELECT * FROM post ORDER BY date DESC LIMIT 5 `
+    const sqlAll = `SELECT * FROM post LEFT JOIN  postlike on postlike.post_id = post.id ORDER BY date DESC LIMIT 5`
     db.query(sqlAll, (err, result) => {
         if (err) {
             return res.status(404).json({

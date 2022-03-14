@@ -100,7 +100,7 @@ exports.login = (req, res, next) => {
         }; 
 
         
-        bcrypt.compare(password, result[0].password) 
+        bcrypt.compare(password, result[0].password)   
             .then(valid => {
                 if (!valid) {
                     res.status(400).json({

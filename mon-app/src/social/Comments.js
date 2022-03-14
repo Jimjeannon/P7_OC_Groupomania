@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import Cardimage from "../social/Updateimage";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 function Cardpost(props) {
-  console.log(props.idUp);
+  console.log(props)
   const [message, setMessage] = useState("");
-  const [image, setImage] = useState("");
+  
 
   const onSubmit = (e) => {
-    let newObj = { message: message, image: image };
-    e.preventDefault();
+     e.preventDefault();
+    let newObj = { message: message ,pseudo: pseudo, idPost: idPost };
+   
     const newPseudo = localStorage.getItem("pseudo");
     const pseudo = newPseudo.replace(/"/g, "");
     const auth = Cookies.get("Token");
-    let id = props.idPost;
+    const idUser = localStorage.getItem("id");
+    let idPost = props.idPost;
     console.log(props.idPost);
     axios
-      .put(`http://localhost:8080/api/post/upadateOne/${id}`, {
+      .post(`http://localhost:8080/api/comment${idUser}`, {
         headers: {
           Authorization: `${auth}`,
         },
@@ -30,11 +31,14 @@ function Cardpost(props) {
         console.log(err);
       });
   };
-
+ function toggle() {
+    const id = localStorage.getItem("id");
+    window.location = `/main/${id}`;
+  }
   return (
     <div className="card-body">
-      <i id="close-update" className="fa fa-ban close"></i>
-      <h1>Modification</h1>
+      <i id="close-update" className="fa fa-ban close" onClick={toggle}></i>
+      <h1>Commentaire</h1>
 
       <form>
         <div className="form-group">
@@ -48,17 +52,12 @@ function Cardpost(props) {
           />
         </div>
         <br />
-        <Cardimage
-          type="file"
-          name="image"
-          onChange={(e) => setImage(e.target.files)}
-        />
         <button
           type="submit"
           onClick={onSubmit}
           className="btn btn-primary btn-block"
         >
-          Update
+          Comments
         </button>
       </form>
     </div>
