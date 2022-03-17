@@ -79,7 +79,22 @@ exports.deletePublish = (req, res, next) => {
 };
 
 exports.allPublish = (req, res, next) => {
-    const sqlAll = `SELECT * FROM post LEFT JOIN  postlike on postlike.post_id = post.id ORDER BY date DESC LIMIT 5`
+    const sqlAll = `SELECT post.user_id AS user_id, post.message AS message, post.image AS image, post.id AS id, post.name_poster AS name_poster, post.date AS date, postlike.idlike AS idlike FROM post LEFT JOIN  postlike on postlike.post_id = post.id ORDER BY date DESC LIMIT 5`
+    db.query(sqlAll, (err, result) => {
+        if (err) {
+            return res.status(404).json({
+              message: "tout les post erreur"
+          });
+        }else {
+         return res.status(200).json(
+            result
+        );
+    }
+    })
+};
+
+exports.morePublish = (req, res, next) => {
+    const sqlAll = `SELECT post.user_id AS user_id, post.message AS message, post.image AS image, post.id AS id, post.name_poster AS name_poster, post.date AS date, postlike.idlike AS idlike FROM post LEFT JOIN  postlike on postlike.post_id = post.id ORDER BY date DESC LIMIT 5 OFFSET 5`
     db.query(sqlAll, (err, result) => {
         if (err) {
             return res.status(404).json({

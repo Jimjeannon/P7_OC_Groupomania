@@ -2,12 +2,14 @@ const dbc = require("../server/database");
 const db = dbc.getDB();
 
 exports.comment = (req, res, next) => {
-    const user_id = req.body.user_id;
-    const name_poster = req.body.user_name;
-    const message = req.body.message;
-    console.log(name_poster)
-    let sqlComment = `INSERT INTO comment ( user_id, message, user_name ) VALUES ( '${user_id}', '${message}', '${name_poster}' )`;
-           
+console.log(req.body.data)
+    const user_id = req.params.id;
+    const name = req.body.data.pseudo;
+    const message = req.body.data.message;
+    const post_id = req.body.data.idPost;
+    
+    let sqlComment = `INSERT INTO comment ( user_id, message, user_name, post_id ) VALUES ( '${user_id}', '${message}', '${name}', '${post_id}' )`;
+      console.log(sqlComment)     
     db.query(sqlComment, function (err, result) {
         if (err) {
             return res.status(404).json({
@@ -54,6 +56,17 @@ exports.delete = (req, res, next) => {
     })
 }
 
-exports.likeComment = (req, res, next) => {
-    
+exports.allComment = (req, res, next) => {
+    const sqlAll = `SELECT * FROM comment`
+    db.query(sqlAll, (err, result) => {
+        if (err) {
+            return res.status(404).json({
+              message: "tout les com erreur"
+          });
+        }else {
+         return res.status(200).json(
+            result
+        );
+    }
+    })
 }

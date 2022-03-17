@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 function Cardpost(props) {
-  console.log(props.idUp);
+  console.log(props);
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
 
@@ -30,10 +30,13 @@ function Cardpost(props) {
         console.log(err);
       });
   };
-
+  function toggle() {
+    const id = localStorage.getItem("id");
+    window.location = `/main/${id}`;
+  }
   return (
     <div className="card-body">
-      <i id="close-update" className="fa fa-ban close"></i>
+      <i onClick={toggle} id="close-update" className="fa fa-ban close"></i>
       <h1>Modification</h1>
 
       <form>

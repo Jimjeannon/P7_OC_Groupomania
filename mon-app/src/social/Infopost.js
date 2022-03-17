@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import image from "../logos/chat.jpg";
+
 import axios from "axios";
 import Cookies from "js-cookie";
-import Loading from "../feedback/progress";
-import { useHistory } from "react-router-dom";
+
 export default class FormInputs extends Component {
   imageHandler = (e) => {
     console.log(e.target.files[0], "##################");
@@ -45,9 +42,11 @@ export default class FormInputs extends Component {
     const id = localStorage.getItem("id");
     const file = this.state.file;
     let formdata = new FormData();
+    
     formdata.append("image", file);
     formdata.append("message", this.state.message);
     formdata.append("nom", pseudo);
+    console.log(formdata);
     axios({
       url: `http://localhost:8080/api/post/publish/${id}`,
       method: "POST",
@@ -69,7 +68,7 @@ export default class FormInputs extends Component {
   render() {
     return (
       <div className="card-body" id="new-post1">
-        <i onClick={this.toggle} id="close" class="fa fa-ban close"></i>
+        <i onClick={this.toggle} id="close" className="fa fa-ban close"></i>
         <h1>Publication</h1>
 
         <form onSubmit={this.onSubmit}>
@@ -77,6 +76,7 @@ export default class FormInputs extends Component {
             <label htmlFor="message">Message</label>
 
             <input
+              data-text="true"
               type="text"
               className="form-group-input"
               name="message"
@@ -97,9 +97,7 @@ export default class FormInputs extends Component {
 
           <button
             className="btn btn-primary btn-block"
-            onClick={() => {
-              <Loading />;
-            }}
+           
           >
             Post
           </button>

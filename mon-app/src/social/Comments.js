@@ -2,23 +2,25 @@ import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-function Cardpost(props) {
+function Comments (props) {
   console.log(props)
   const [message, setMessage] = useState("");
   
 
   const onSubmit = (e) => {
      e.preventDefault();
-    let newObj = { message: message ,pseudo: pseudo, idPost: idPost };
+    
    
     const newPseudo = localStorage.getItem("pseudo");
     const pseudo = newPseudo.replace(/"/g, "");
     const auth = Cookies.get("Token");
     const idUser = localStorage.getItem("id");
-    let idPost = props.idPost;
-    console.log(props.idPost);
+    let idPost = props.idPost.id;
+  
+    let newObj = { message: message ,pseudo: pseudo, idPost: idPost };
+    
     axios
-      .post(`http://localhost:8080/api/comment${idUser}`, {
+      .post(`http://localhost:8080/api/comment/${idUser}`, {
         headers: {
           Authorization: `${auth}`,
         },
@@ -64,4 +66,4 @@ function Cardpost(props) {
   );
 }
 
-export default Cardpost;
+export default Comments;

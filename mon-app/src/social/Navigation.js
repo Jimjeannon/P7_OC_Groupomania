@@ -15,8 +15,12 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import Cookies from "js-cookie";
 
 const Search = styled('div')(({ theme }) => ({
+
+
+  
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -83,10 +87,15 @@ export default function PrimarySearchAppBar() {
     handleMobileMenuClose();
   };
 
+  function handleRemoveCookie() {
+    Cookies.remove("Token");
+  }
+
   const handleMenuLogout = () => {
     setAnchorEl(
     window.location = `/`);
     handleMobileMenuClose();
+    handleRemoveCookie();
   };
 
   const handleMobileMenuOpen = (event) => {
