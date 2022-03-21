@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import {useNavigate } from "react-router-dom"
 
 export class UploadImg extends Component {
  
@@ -32,7 +33,8 @@ formdata.append('image', file)
     },
     data: formdata // pass here
   }).then((res)=>{
-console.log(res.data);
+    const id = localStorage.getItem("id");
+    return window.location = `/profil/${id}`;
   })
 
 }

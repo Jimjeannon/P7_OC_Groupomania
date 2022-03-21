@@ -4,7 +4,11 @@ import Logout from "../connect/Logout";
 import Profile from "../components/Profile";
 import Logo from "../logos/icon-left-font-monochrome-black.png";
 import Cookies from "js-cookie";
+import {useNavigate } from "react-router-dom"
 function Home() {
+
+  const navigate = useNavigate()
+
   const [logoutModal, setLogOutModal] = useState(false);
   const [homeModal, setHomeModal] = useState(false);
 
@@ -18,12 +22,15 @@ function Home() {
       const newId = localStorage.getItem("id");
       const id = newId.replace(/"/g, "");
       setHomeModal(true);
-      window.location = `/main/${id}`;
+      
+    navigate(`/main/${id}`)
+      
     }
     if (e.target.id === "logout") {
       setLogOutModal(true);
       handleRemoveCookie();
-      window.location = "/";
+      
+    navigate("/")
     } else {
       console.log("Token cookie not found");
     }

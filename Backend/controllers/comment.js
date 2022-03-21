@@ -42,8 +42,10 @@ db.query(sqlUpdate, (err, result) => {
 }
 
 exports.delete = (req, res, next) => {
-    let com_id = req.body.id;
-    let sqlDelete = `DELETE FROM comment WHERE id='${com_id}'`;
+    let com_id = req.params.id;
+    
+    let sqlDelete = `DELETE FROM comment WHERE id_com ='${com_id}'`;
+    console.log(sqlDelete);
     db.query(sqlDelete, (err, result) => {
         if (err) {
             return res.status(404).json({
@@ -57,7 +59,7 @@ exports.delete = (req, res, next) => {
 }
 
 exports.allComment = (req, res, next) => {
-    const sqlAll = `SELECT * FROM comment`
+    const sqlAll = `SELECT * FROM comment LEFT JOIN post on post.id = comment.post_id `
     db.query(sqlAll, (err, result) => {
         if (err) {
             return res.status(404).json({

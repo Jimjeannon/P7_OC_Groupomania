@@ -42,7 +42,8 @@ font-weight: bold;
 .card-position{ 
     display: flex;
   justify-content: center;
-  margin-top:70px;
+  
+  
 }
 
 .card-form{
@@ -246,15 +247,17 @@ font-weight: bold;
 
 /* New post card style */
 
-.card-position{
+.card-position-main{
     display : flex;
     justify-content:center;
+    flex-direction: column;
+    margin-left: 30%;
+    margin-top:30px;
 }
 
 .card-post{
     align-items: center;
     width: 50%;
-    margin-bottom: 60px;
     border: 1px solid #dbdbdb;
     border: 1px solid rgba(var(--b6a,219,219,219),1);
     border-radius: 3px;
@@ -372,16 +375,28 @@ font-weight: bold;
 
 /* Card comment */
 .card-com{
-    position: absolute;
+    
     text-align: center;
     align-items: center;
-    background-color: rgb(248, 237, 237);
+    background-color: rgb(255, 255, 255);
     border: none;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
     box-sizing: border-box;
-    margin: 40px 0 0;
-    padding: 20px 0 28px;
-    width: 400px;
-    
+    padding: 5px;
+    width: 50%;
+    margin-top: 5px;
+}
+
+.com-container{
+    border-radius: 8px;
+    background-color:rgb(222, 228, 235);
+    padding: 10px;
+}
+
+.header-card-com{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px;
 }

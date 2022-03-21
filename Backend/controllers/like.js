@@ -46,9 +46,9 @@ exports.dislike = (req, res, next) => {
     
     exports.numberlike = (req, res, next) => {  
         
-        let dislike = `SELECT post_id FROM postlike`;
+        let numblike = `SELECT COUNT(postlike.post_id) FROM postlike GROUP BY post_id;`;
         
-        db.query(dislike, function (err, result) {
+        db.query(numblike, function (err, result) {
             if (err) {
                 return res.status(404).json({
                   message: "dislike err"

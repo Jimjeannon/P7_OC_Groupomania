@@ -2,32 +2,23 @@ import React, { useState, useEffect} from "react";
 import "../App.css";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 
 const App = (props) => {
   
   const [style, setStyle] = useState(null);
   const [liked, setLiked ] = useState(null);
-  // const [likeNum, setLikeNum] = useState([]);
+  const [likeNum, setLikeNum] = useState([]);
 
 
   let idLike = props.idPost.idlike;
   let urlElements = window.location.href.split("/");
   let id = urlElements[4];
 
-//   axios
-//       .get(`http://localhost:8080/api/like/`, {
-//       })
-//       .then((res) => {
-//   return setLikeNum(res.data.result)
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       },[]);
+ 
 
 //       const numberList = likeNum.map((e) => (
         
-// <p key={1}>{e.post_id}</p>
+// <p key={props.idPost.id}>{e.data.result}</p>
 //       ))
   
   useEffect(() => {
@@ -42,7 +33,7 @@ const App = (props) => {
     const idUser = localStorage.getItem("id");
     let idPost = props.idPost.id;
     
-    console.log(idLike)
+    
     if(idLike == null){
     axios
       .post(`http://localhost:8080/api/like/${idUser}`, {
@@ -81,9 +72,9 @@ const App = (props) => {
 
   return (
     <>
-      <div className={style}>
+      <div className={style}  >
         <i className="fa fa-heart "  onClick={changeStyle}></i>
-        {/* <div>{numberList}</div>; */}
+        {/* <div >{numberList}</div> */}
       </div>
     </>
   );

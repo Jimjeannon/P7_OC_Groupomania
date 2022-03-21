@@ -15,7 +15,7 @@ function Comments (props) {
     const pseudo = newPseudo.replace(/"/g, "");
     const auth = Cookies.get("Token");
     const idUser = localStorage.getItem("id");
-    let idPost = props.idPost.id;
+    let idPost = 90;
   
     let newObj = { message: message ,pseudo: pseudo, idPost: idPost };
     

@@ -17,7 +17,6 @@ function Allposts() {
   const [post, setPost] = useState([]);
   const handleClick = () => alert("Clicked");
 
-console.log(newComModal)
   const [loadPost, setLoadPost] = useState(true);
   const [count, setCount] = useState(5);
 
@@ -27,11 +26,11 @@ console.log(newComModal)
       document.scrollingElement.scrollHeight
     ) {
       setLoadPost(true)  
-      console.log("Next post ");
+      
       axios
       .get(`http://localhost:8080/api/post/getMore`)
       .then((response) => {
-        console.log(response.data);
+        
         return setPost(response.data);
       })
       .catch((error) => {
@@ -57,16 +56,16 @@ console.log(newComModal)
   };
 
   const commentModals = (e) => {
-    if (e.target.id === "comment-post") {
+    if (e.target.className === "fa fa-comment comment") {
       setUpComModal(true);
-    }
+    }else{return console.log(e)}
   };
 
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/post/getAll`)
       .then((response) => {
-        console.log(response.data);
+        
         return setPost(response.data);
       })
       .catch((error) => {
@@ -75,7 +74,8 @@ console.log(newComModal)
   }, []);
 
   const eventsList = post.map((event) => (
-    <div key={event.id} className="card-position">
+    
+    <div key={event.id} className="card-position-main">
       <div className="card-post">
         <div className="header-card">
           <Stack direction="row" spacing={2}>
@@ -104,7 +104,7 @@ console.log(newComModal)
         ) : null}
 
         <div className="icon-action">
-          <i className="fa fa-comment" id="comment-post" onClick={commentModals} ></i>
+          <i className="fa fa-comment comment" id={event.id}  onClick={commentModals} ></i>
           <Like idPost={event}/>
         </div>
         <div className="com-post">{event.message}</div>
@@ -115,8 +115,8 @@ console.log(newComModal)
           </a>
         </div>
       </div>
-      
-      {newComModal && <Comments idPost={event}/>}
+      <Allcom  idPost={event.id}/>
+      {newComModal && <Comments id={event.id}/>}
       
     </div>
     
