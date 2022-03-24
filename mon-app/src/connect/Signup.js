@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { Component } from "react";
 import "../App.css";
-import Cookies from "js-cookie";
+import swal from 'sweetalert';
+
 
 class PostForm extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class PostForm extends Component {
       email: "",
       pseudo: "",
       password: "",
-    };
+    }
   }
 
   changeHandler = (e) => {
@@ -19,19 +20,26 @@ class PostForm extends Component {
   };
 
   submitHandler = (e) => {
-    e.preventDefault();
-    console.log(this.state);
-    axios
+    if(document.getElementById("lifecheck").checked){
+      e.preventDefault();
+     
+     axios
       .post("http://localhost:8080/api/user/signup", this.state)
       .then((response) => {
         window.location = "/";
         let message = document.querySelector(".passwordError");
         message.innerHTML = `${response.data.message}`;
       })
-      .catch((err) => {
-        let message = document.querySelector(".passwordError");
-        message.innerHTML = `${err.response.data.message}`;
-      });
+       .catch((err) => {
+         let message = document.querySelector(".passwordError");
+         message.innerHTML = `${err.response.data.message}`;
+       });
+      
+    }else{
+      return swal("Check conditions")
+      
+    }
+     
   };
 
   render() {
@@ -75,7 +83,7 @@ class PostForm extends Component {
             />
             <br />
             <p>En continuant, vous acceptez les Conditions d'utilisation </p>
-            <input type="checkbox" className="checkbox"></input>
+            <input type="checkbox" id="lifecheck" className="checkbox"></input>
 
             <div className="passwordError"></div>
           </div>

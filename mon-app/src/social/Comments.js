@@ -3,7 +3,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 function Comments (props) {
-  console.log(props)
   const [message, setMessage] = useState("");
   
 
@@ -15,7 +14,7 @@ function Comments (props) {
     const pseudo = newPseudo.replace(/"/g, "");
     const auth = Cookies.get("Token");
     const idUser = localStorage.getItem("id");
-    let idPost = 90;
+    let idPost = 112;
   
     let newObj = { message: message ,pseudo: pseudo, idPost: idPost };
     
@@ -27,6 +26,7 @@ function Comments (props) {
         data: newObj,
       })
       .then((res) => {
+        window.location = `/main/${idUser}`;
         return console.log(res.data);
       })
       .catch((err) => {
@@ -38,7 +38,7 @@ function Comments (props) {
     window.location = `/main/${id}`;
   }
   return (
-    <div className="card-body">
+    <div className="card-com">
       <i id="close-update" className="fa fa-ban close" onClick={toggle}></i>
       <h1>Commentaire</h1>
 

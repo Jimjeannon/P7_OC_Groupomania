@@ -4,8 +4,8 @@ const comController = require('../controllers/comment');
 const auth =  require('../middlewar/auth');
 
 router.post('/:id', comController.comment);
-router.put('/modif',auth, comController.modifCom);
-router.delete('/delete/:id', comController.delete);
 router.get('/all', comController.allComment);
+router.put('/modif',auth, comController.modifCom);
+router.delete('/delete/:idCom/:id',auth, comController.delete);
 
 module.exports = router;

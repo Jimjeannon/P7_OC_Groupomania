@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../App.css";
-import Logout from "../connect/Logout";
+
 import Profile from "../components/Profile";
 import Logo from "../logos/icon-left-font-monochrome-black.png";
 import Cookies from "js-cookie";
@@ -46,7 +46,7 @@ function Home() {
         <button id="logout" onClick={handleModals}>
           Logout
         </button>
-        {logoutModal && <Logout />}
+        {logoutModal }
         <Profile />
       </div>
     </div>

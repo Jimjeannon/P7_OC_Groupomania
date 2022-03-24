@@ -15,6 +15,8 @@ export default function Post() {
   const handleModals = (e) => {
     if (e.target.id === "new-post") {
       setUpPostModal(true);
+    }if(e.target.className === "message-perso"){
+      setUpPostModal(true);
     }
   };
 
@@ -24,7 +26,7 @@ export default function Post() {
         <Stack direction="row" spacing={2}>
           <Avatar alt={pseudo} src="./logos/avatar.jpg" />
         </Stack>
-        <p className="message-perso"> Quoi de neuf, {pseudo} ?</p>
+        <p className="message-perso" onClick={handleModals}> Quoi de neuf, {pseudo} ?</p>
         <button onClick={handleModals} id="new-post">
           Post
         </button>

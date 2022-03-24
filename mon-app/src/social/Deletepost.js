@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import swal from 'sweetalert';
 
 const Delete = (props) => {
   let urlElements = window.location.href.split("/");
@@ -9,21 +10,19 @@ const Delete = (props) => {
   const deleteHandler = (e) => {
     e.preventDefault();
     let idPost = props.idPost;
-    console.log(props)
     const auth = Cookies.get("Token");
 
     axios
-      .delete(`http://localhost:8080/api/post/delete/${idPost}`, {
+      .delete(`http://localhost:8080/api/post/delete/${idPost}/${id}`, {
         headers: {
           Authorization: `${auth}`,
         },
       })
       .then((response) => {
         window.location = `/main/${id}`;
-        console.log(response);
       })
       .catch((err) => {
-        console.log(err);
+       return swal(err.response.data.error)
       });
   };
 

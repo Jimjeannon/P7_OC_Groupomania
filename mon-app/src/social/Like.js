@@ -11,29 +11,40 @@ const App = (props) => {
 
 
   let idLike = props.idPost.idlike;
+  let idPoster = props.idPost.user_id;
   let urlElements = window.location.href.split("/");
   let id = urlElements[4];
-
- 
-
-//       const numberList = likeNum.map((e) => (
-        
-// <p key={props.idPost.id}>{e.data.result}</p>
-//       ))
-  
+ console.log(id)
   useEffect(() => {
-    if ((idLike === null)) setLiked(false);
-    else {setLiked(true);
-      setStyle("cont");
-    }
-  }, [idLike, props.idPost, liked])
+  axios
+      .get(`http://localhost:8080/api/like/`)
+      .then((res) => { 
+     setLikeNum(res.data.result)
+    let tableLike = res.data.result
+    // tableLike.forEach(e => {if(e.user_id === id){ setStyle("cont")}else{console.log(e.user_id, "not bg")}})
+      for (let i = 0; i < res.data.result[i].length; i++) {
+        console.log(res.data.result)
+        if (res.data.result[i].user_id = id) {
+         return setStyle("cont");
+        }
+      }
+      })
+      .catch((err) => {
+       return console.log(err);
+     }) },[]);
+
+    
+
+     const numberList = likeNum.map((e) =>{
+      if(props.idPost.id === e.post_id){
+        return <p key={props.idPost.id}>{e.Nblike}</p>
+      }
+    })
 
   const changeStyle = () => {
     const auth = Cookies.get("Token");
     const idUser = localStorage.getItem("id");
     let idPost = props.idPost.id;
-    
-    
     if(idLike == null){
     axios
       .post(`http://localhost:8080/api/like/${idUser}`, {
@@ -43,7 +54,7 @@ const App = (props) => {
         data: idPost,
       })
       .then((res) => {
-        window.location = `/main/${id}`;
+        
         return console.log(res.data);
       })
       .catch((err) => {
@@ -72,10 +83,12 @@ const App = (props) => {
 
   return (
     <>
+      <div className="container-like">
       <div className={style}  >
-        <i className="fa fa-heart "  onClick={changeStyle}></i>
-        {/* <div >{numberList}</div> */}
+        <i className="fa fa-heart"  onClick={changeStyle}></i>
       </div>
+      { <div className="number-style" >{numberList} </div> }
+    </div>
     </>
   );
 };

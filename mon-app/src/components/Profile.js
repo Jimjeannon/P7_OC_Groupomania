@@ -8,7 +8,7 @@ import avatar from "../logos/avatar.jpg";
 
 const Profile = (props) => {
   const [imgSrc, setImgSrc] = useState("");
-  console.log(imgSrc);
+  
   let urlElements = window.location.href.split("/");
   let id = urlElements[4];
   const auth = Cookies.get("Token");

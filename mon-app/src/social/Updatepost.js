@@ -4,18 +4,16 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 function Cardpost(props) {
-  console.log(props);
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
 
   const onSubmit = (e) => {
     let newObj = { message: message, image: image };
     e.preventDefault();
-    const newPseudo = localStorage.getItem("pseudo");
-    const pseudo = newPseudo.replace(/"/g, "");
+    
     const auth = Cookies.get("Token");
     let id = props.idPost;
-    console.log(props.idPost);
+    
     axios
       .put(`http://localhost:8080/api/post/upadateOne/${id}`, {
         headers: {
@@ -36,7 +34,7 @@ function Cardpost(props) {
   }
   return (
     <div className="card-body">
-      <i onClick={toggle} id="close-update" className="fa fa-ban close"></i>
+      <i onClick={toggle} className="fa fa-ban close"></i>
       <h1>Modification</h1>
 
       <form>

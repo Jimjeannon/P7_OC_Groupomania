@@ -15,38 +15,38 @@ function Allposts() {
   const [newPostModal, setUpPostModal] = useState(false);
   const [newComModal, setUpComModal] = useState(false);
   const [post, setPost] = useState([]);
-  const handleClick = () => alert("Clicked");
+  const handleClick = () => console.log("delete");
 
   const [loadPost, setLoadPost] = useState(true);
   const [count, setCount] = useState(5);
 
-  const loadMore = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >
-      document.scrollingElement.scrollHeight
-    ) {
-      setLoadPost(true)  
+  // const loadMore = () => {
+  //   if (
+  //     window.innerHeight + document.documentElement.scrollTop + 1 >
+  //     document.scrollingElement.scrollHeight
+  //   ) {
+  //     setLoadPost(true)  
       
-      axios
-      .get(`http://localhost:8080/api/post/getMore`)
-      .then((response) => {
+  //     axios
+  //     .get(`http://localhost:8080/api/post/getMore`)
+  //     .then((response) => {
         
-        return setPost(response.data);
-      })
-      .catch((error) => {
-        return console.log(error);
-      });
-    }
-  };
-  useEffect(() => {
-    if (loadPost) {
-      setLoadPost(false);
-      setCount(count + 5);
-    }
+  //       return setPost(response.data);
+  //     })
+  //     .catch((error) => {
+  //       return console.log(error);
+  //     });
+  //   }
+  // };
+  // useEffect(() => {
+  //   if (loadPost) {
+  //     setLoadPost(false);
+  //     setCount(count + 5);
+  //   }
 
-    window.addEventListener('scroll', loadMore);
-    return () => window.removeEventListener('scroll', loadMore);
-  }, [loadPost, count]);
+  //   window.addEventListener('scroll', loadMore);
+  //   return () => window.removeEventListener('scroll', loadMore);
+  // }, [loadPost, count]);
 
 
   const handleModals = (e) => {
@@ -86,18 +86,16 @@ function Allposts() {
             {event.name_poster}
           </a>
           <div
-            onClick={() => {
-              if (window.confirm("Voulez-vous supprimer cet article ?")) {
-              }
-            }}
+            // onClick={() => {
+            //   if (window.confirm("Voulez-vous supprimer cet article ?") == true) {
+            //     handleClick()
+            //   }else{ window.location.reload() }
+            // }}
           >
             <Delete className="trash" click={handleClick} idPost={event.id} />
           </div>
           {newPostModal && <Updatepost />}
-          <button onClick={handleModals} id="update-post">
-          
-            Update
-          </button>
+         
         </div>
         {event.image ? (
           <img className="img-post" src={event.image} alt="image post"></img>
@@ -110,7 +108,6 @@ function Allposts() {
         <div className="com-post">{event.message}</div>
         <div>
           <a className="date-post" tabIndex="0">
-            
             {formatDistance(subDays(new Date(event.date), 0), new Date(), { addSuffix: true })}
           </a>
         </div>

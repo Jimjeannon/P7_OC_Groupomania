@@ -1,10 +1,12 @@
-const express = require('express');
+const path = require("path");
+const bodyParser = require('body-parser');
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 const comRoutes =  require ('./routes/comment');
-const path = require("path");
-const bodyParser = require('body-parser');
+
 const cookieParser = require("cookie-parser");
+const express = require('express');
+
 const app = express();
 
 

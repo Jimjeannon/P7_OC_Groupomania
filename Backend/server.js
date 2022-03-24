@@ -3,7 +3,7 @@ const http = require('http');
 
 const app = require('./app');
 
-const dotenv = require ("dotenv");
+const dotenv = require("dotenv");
 require('dotenv').config();
 // Fonction normalize garde-corps de sécurité pour s'assurer que le port fourni est number
 
@@ -11,7 +11,8 @@ const normalizePort = val => {
     const port = parseInt(val, 10);
 
     if (isNaN(port)) {
-        return val;G
+        return val;
+        G
     }
     if (port >= 0) {
         return port;
@@ -53,7 +54,6 @@ server.on('error', errorHandler);
 server.on('listening', () => {
     const address = server.address();
     const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
-    console.log('Listening on ' + bind);
 });
 
 server.listen(port);

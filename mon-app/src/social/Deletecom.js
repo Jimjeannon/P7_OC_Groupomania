@@ -9,18 +9,16 @@ const Delete = (props) => {
   const deleteHandler = (e) => {
     e.preventDefault();
     let idCom = props.idCom;
-    console.log(props)
     const auth = Cookies.get("Token");
 
     axios
-      .delete(`http://localhost:8080/api/comment/delete/${idCom}`, {
+      .delete(`http://localhost:8080/api/comment/delete/${idCom}/${id}`, {
         headers: {
           Authorization: `${auth}`,
         },
       })
       .then((response) => {
         window.location = `/main/${id}`;
-        console.log(response);
       })
       .catch((err) => {
         console.log(err);

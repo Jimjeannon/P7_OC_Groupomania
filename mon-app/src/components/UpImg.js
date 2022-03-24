@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {useNavigate } from "react-router-dom"
 
 export class UploadImg extends Component {
  
-
   state=  {
     file: null
   }
   
 handleFile(e){
-  console.log(e.target.files[0], "###");
+  
 
   let file = e.target.files[0]
 
@@ -23,7 +21,7 @@ const auth = Cookies.get('Token');
 const file = this.state.file
 const id = localStorage.getItem("id");
 let formdata = new FormData()
-console.log(this.state)
+
 formdata.append('image', file)
   axios({
     url: `http://localhost:8080/api/user/image/${id}`,

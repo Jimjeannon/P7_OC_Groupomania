@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Alert from "../feedback/alert";
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -28,11 +28,10 @@ class LoginForm extends Component {
         localStorage.setItem("pseudo", JSON.stringify(pseudo));
         localStorage.setItem("id", JSON.stringify(id));
         window.location = `/profil/${id}`;
-        Cookies.set("Token", response.data.token, { expires: 7, path: "" });
-        console.log(response.data.id);
+        Cookies.set("Token", response.data.token, { expires: 1,});
       })
       .catch((err) => {
-        console.log(err.response.data.message);
+        
         let message = document.querySelector(".passwordError");
         message.innerHTML = `${err.response.data.message}`;
       });

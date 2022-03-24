@@ -9,7 +9,7 @@ export default class FormInputs extends Component {
         pseudo: '',
         password: '',
         Emploi: '',
-            Ville:''
+        Ville:''
     }
 
     onChange = (event) => {
@@ -32,9 +32,9 @@ export default class FormInputs extends Component {
 
     submitHandler = e => {
 		e.preventDefault()
-		console.log(this.state)
+		
         const auth = Cookies.get('Token');
-		console.log(auth)
+		
 		axios
 			.put('http://localhost:8080/api/user/update', this.state, {
                 headers: {

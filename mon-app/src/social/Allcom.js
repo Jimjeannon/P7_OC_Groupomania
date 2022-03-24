@@ -10,12 +10,10 @@ function Allcom(props) {
   const [com, setCom] = useState([]);
   const handleClick = () => alert("Clicked");
 
-
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/comment/all`)
       .then((response) => {
-        
         return setCom(response.data);
       })
       .catch((error) => {
@@ -23,10 +21,10 @@ function Allcom(props) {
       });
   }, []);
 
-  const eventsList = com.map((event) => {  
-    if(props.idPost === event.post_id)
-  
-   return <div key={event.id_com} >
+  const eventsList = com.map((event) => { 
+    
+    if(props.idPost === event.post_id){
+      return <div key={event.id_com} >
       <div className="card-com">
         <div className="header-card-com">
           <Stack direction="row" spacing={2}>
@@ -51,11 +49,13 @@ function Allcom(props) {
         <a className="pseudo" href="">
             {event.user_name}
           </a>
-         <div >{event.message}</div>
+         <div >{event.message_com}</div>
         </div>
       </div>
    
     </div>
+    }
+  
   }
   );
  

@@ -9,7 +9,6 @@ export default class Delete extends Component {
       email: "",
       password: "",
     };
-    console.log(this.state);
   }
 
   changeHandler = (e) => {
@@ -33,7 +32,7 @@ export default class Delete extends Component {
         function handleRemoveCookie() {
           Cookies.remove("Token", { path: "" });
         }
-        console.log(response);
+        
         window.location = "/";
         handleRemoveCookie();
       })

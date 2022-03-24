@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 export default class FormInputs extends Component {
   imageHandler = (e) => {
-    console.log(e.target.files[0], "##################");
+    
 
     let file = e.target.files[0];
 
@@ -22,7 +22,6 @@ export default class FormInputs extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    // console.log(this.state.nom);
   };
 
   onSubmit = (event) => {
@@ -46,7 +45,7 @@ export default class FormInputs extends Component {
     formdata.append("image", file);
     formdata.append("message", this.state.message);
     formdata.append("nom", pseudo);
-    console.log(formdata);
+    
     axios({
       url: `http://localhost:8080/api/post/publish/${id}`,
       method: "POST",
@@ -54,9 +53,9 @@ export default class FormInputs extends Component {
         authorization: `${auth}`,
       },
       data: formdata,
-      // pass here
+      
     }).then((res) => {
-      console.log(res.data);
+     
       window.location = `/main/${id}`;
     });
   };
