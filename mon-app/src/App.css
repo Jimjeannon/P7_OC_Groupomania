@@ -471,3 +471,11 @@ input[type='file'] { color: transparent; }
 }
     
   }
+
+
+  /* Tesssssssssssssstttttttttttt pppppppppppppoppppppppppppppppppuuppp */
+
+  .actived {
+    z-index: -100;
+    opacity: 0;
+  }

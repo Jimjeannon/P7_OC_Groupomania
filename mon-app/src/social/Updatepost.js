@@ -4,6 +4,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 function Cardpost(props) {
+
+  console.log(props)
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
 
@@ -12,7 +14,7 @@ function Cardpost(props) {
     e.preventDefault();
     
     const auth = Cookies.get("Token");
-    let id = props.idPost;
+    let id = props.id;
     
     axios
       .put(`http://localhost:8080/api/post/upadateOne/${id}`, {

@@ -3,8 +3,17 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 function Comments (props) {
+
+  console.log(props.id)
+
+  const [isActive, setActive] = useState("false");
+
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
+
   const [message, setMessage] = useState("");
-  
+
 
   const onSubmit = (e) => {
      e.preventDefault();
@@ -14,8 +23,8 @@ function Comments (props) {
     const pseudo = newPseudo.replace(/"/g, "");
     const auth = Cookies.get("Token");
     const idUser = localStorage.getItem("id");
-    let idPost = 112;
-  
+    let idPost = props.id;
+   
     let newObj = { message: message ,pseudo: pseudo, idPost: idPost };
     
     axios
@@ -33,13 +42,14 @@ function Comments (props) {
         console.log(err);
       });
   };
- function toggle() {
-    const id = localStorage.getItem("id");
-    window.location = `/main/${id}`;
-  }
+
   return (
-    <div className="card-com">
-      <i id="close-update" className="fa fa-ban close" onClick={toggle}></i>
+    <div className={`card-form ${isActive ? "" : "actived"}`}>
+     <div >
+
+        <i id="close-update" className="fa fa-ban close" onClick={handleToggle}></i>
+     
+      
       <h1>Commentaire</h1>
 
       <form>
@@ -62,6 +72,7 @@ function Comments (props) {
           Comments
         </button>
       </form>
+      </div>
     </div>
   );
 }

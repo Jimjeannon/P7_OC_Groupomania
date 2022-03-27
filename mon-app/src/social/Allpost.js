@@ -4,15 +4,15 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Delete from "../social/Deletepost";
 import Like from "../social/Like";
-import Updatepost from "../social/Updatepost";
 import Comments  from "./Comments";
 import { formatDistance, subDays } from 'date-fns'
 import Allcom from "../social/Allcom";
+
 function Allposts() {
 
  
 
-  const [newPostModal, setUpPostModal] = useState(false);
+  
   const [newComModal, setUpComModal] = useState(false);
   const [post, setPost] = useState([]);
   const handleClick = () => console.log("delete");
@@ -20,40 +20,37 @@ function Allposts() {
   const [loadPost, setLoadPost] = useState(true);
   const [count, setCount] = useState(5);
 
-  // const loadMore = () => {
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop + 1 >
-  //     document.scrollingElement.scrollHeight
-  //   ) {
-  //     setLoadPost(true)  
+  const loadMore = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >
+      document.scrollingElement.scrollHeight
+    ) {
+      setLoadPost(true)  
       
-  //     axios
-  //     .get(`http://localhost:8080/api/post/getMore`)
-  //     .then((response) => {
+      axios
+      .get(`http://localhost:8080/api/post/getMore`)
+      .then((response) => {
         
-  //       return setPost(response.data);
-  //     })
-  //     .catch((error) => {
-  //       return console.log(error);
-  //     });
-  //   }
-  // };
-  // useEffect(() => {
-  //   if (loadPost) {
-  //     setLoadPost(false);
-  //     setCount(count + 5);
-  //   }
-
-  //   window.addEventListener('scroll', loadMore);
-  //   return () => window.removeEventListener('scroll', loadMore);
-  // }, [loadPost, count]);
-
-
-  const handleModals = (e) => {
-    if (e.target.id === "update-post") {
-      setUpPostModal(true);
+        return setPost(response.data);
+      })
+      .catch((error) => {
+        return console.log(error);
+      });
     }
   };
+
+  useEffect(() => {
+    if (loadPost) {
+      setLoadPost(false);
+      setCount(count + 5);
+    }
+
+    window.addEventListener('scroll', loadMore);
+    return () => window.removeEventListener('scroll', loadMore);
+  }, [loadPost, count]);
+
+
+ 
 
   const commentModals = (e) => {
     if (e.target.className === "fa fa-comment comment") {
@@ -86,15 +83,17 @@ function Allposts() {
             {event.name_poster}
           </a>
           <div
-            // onClick={() => {
-            //   if (window.confirm("Voulez-vous supprimer cet article ?") == true) {
-            //     handleClick()
-            //   }else{ window.location.reload() }
-            // }}
+            onClick={() => {
+              if (window.confirm("Voulez-vous supprimer cet article ?") == true) {
+                handleClick()
+              }else{ window.location.reload() }
+            }}
           >
             <Delete className="trash" click={handleClick} idPost={event.id} />
+            
           </div>
-          {newPostModal && <Updatepost />}
+          
+          
          
         </div>
         {event.image ? (
@@ -113,13 +112,20 @@ function Allposts() {
         </div>
       </div>
       <Allcom  idPost={event.id}/>
-      {newComModal && <Comments id={event.id}/>}
+    
+        {newComModal && <Comments id={event.id}/>}
+        
       
     </div>
     
   ));
   
-  return <div>{eventsList}</div>;
+  return(
+    <div>
+      <div>{eventsList}</div>
+    </div>
+  
+  );
 }
 
 export default Allposts;

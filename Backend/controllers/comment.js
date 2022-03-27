@@ -43,19 +43,34 @@ exports.modifCom = (req, res, next) => {
 
 exports.delete = (req, res, next) => {
     let com_id = req.params.idCom;
-
-    let sqlDelete = `DELETE FROM comment WHERE id_com ='${com_id}'`;
+    let user_id = req.params.id;
     
-    db.query(sqlDelete, (err, result) => {
-        if (err) {
+    let sqlCheck = `SELECT user_id FROM comment WHERE id_com='${com_id}'`;
+    db.query(sqlCheck, (err, result) => {
+       
+        if (result[0].user_id != user_id) {
             return res.status(404).json({
-                message: "Supretion erreur "
+                message: "Supression non authorisé"
             });
-        };
-        res.status(200).json({
-            message: "Commentaire suprimé !"
-        });
-    })
+            }else{
+                let sqlDelete = `DELETE FROM comment WHERE id_com ='${com_id}'`;
+    
+                db.query(sqlDelete, (err, result) => {
+                    if (err) {
+                        return res.status(404).json({
+                            message: "Supretion erreur "
+                        });
+                    };
+                    res.status(200).json({
+                        message: "Commentaire suprimé !"
+                    });
+                })
+            }
+            })
+            
+            
+
+    
 }
 
 exports.allComment = (req, res, next) => {

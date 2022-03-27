@@ -6,6 +6,7 @@ import Logo from "../logos/icon-left-font-monochrome-black.png";
 
 
 export default function Profil() {
+  
   const [signUpModal, setSignUpModal] = useState(false);
   const [signInModal, setSignInModal] = useState(true);
   

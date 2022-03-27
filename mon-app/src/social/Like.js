@@ -9,21 +9,24 @@ const App = (props) => {
   const [liked, setLiked ] = useState(null);
   const [likeNum, setLikeNum] = useState([]);
 
-
+  let idPost = props.idPost.id
   let idLike = props.idPost.idlike;
   let idPoster = props.idPost.user_id;
   let urlElements = window.location.href.split("/");
   let id = urlElements[4];
- console.log(id)
   useEffect(() => {
   axios
       .get(`http://localhost:8080/api/like/`)
       .then((res) => { 
      setLikeNum(res.data.result)
     let tableLike = res.data.result
-    // tableLike.forEach(e => {if(e.user_id === id){ setStyle("cont")}else{console.log(e.user_id, "not bg")}})
-      for (let i = 0; i < res.data.result[i].length; i++) {
-        console.log(res.data.result)
+    
+tableLike.forEach((item) => {console.log(item.user_id = id)})
+
+
+
+      for (let i = 0; i < res.data.result.length; i++) {
+        
         if (res.data.result[i].user_id = id) {
          return setStyle("cont");
         }
@@ -36,6 +39,9 @@ const App = (props) => {
     
 
      const numberList = likeNum.map((e) =>{
+
+
+      
       if(props.idPost.id === e.post_id){
         return <p key={props.idPost.id}>{e.Nblike}</p>
       }
@@ -45,7 +51,8 @@ const App = (props) => {
     const auth = Cookies.get("Token");
     const idUser = localStorage.getItem("id");
     let idPost = props.idPost.id;
-    if(idLike == null){
+
+    if(idLike == null ){
     axios
       .post(`http://localhost:8080/api/like/${idUser}`, {
         headers: {
@@ -84,8 +91,8 @@ const App = (props) => {
   return (
     <>
       <div className="container-like">
-      <div className={style}  >
-        <i className="fa fa-heart"  onClick={changeStyle}></i>
+      <div className={style} >
+        <i className="fa fa-heart" id={`coeur` + idPost} onClick={changeStyle}></i>
       </div>
       { <div className="number-style" >{numberList} </div> }
     </div>

@@ -7,7 +7,10 @@ import Infopost from "../social/Infopost";
 
 import React, { useState } from "react";
 
-export default function Post() {
+export default function Post(props) {
+
+
+
   const [newPostModal, setUpPostModal] = useState(false);
   const newPseudo = localStorage.getItem("pseudo");
   const pseudo = newPseudo.replace(/"/g, "");
