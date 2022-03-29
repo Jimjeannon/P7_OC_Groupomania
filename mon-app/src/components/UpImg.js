@@ -42,8 +42,9 @@ formdata.append('image', file)
 <div>
   <form >
     <div className="info-profile">
-      <label></label>
-      <input type="file" accept="image/*"name="file" onChange={(e)=>this.handleFile(e)}/>
+      <label htmlFor="Ajouter image">
+        <input type="file" title="Changer image de profil" accept="image/*" name="file" id="ajouter-image" onChange={(e)=>this.handleFile(e)}/>
+      </label>
     </div>
     <button type="button" onClick={(e)=>this.handleUpload(e)}>Upload</button>
   </form>

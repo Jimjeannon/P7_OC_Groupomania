@@ -42,9 +42,10 @@ class LoginForm extends Component {
     return (
       <div className="card-position">
         <form className="card-form" onSubmit={this.submitHandler}>
-          <label htmlFor="email">Email</label>
-          <br />
+          <label htmlFor="email">Email
+           <br />
           <input
+            id="email-log"
             type="text"
             name="email"
             className="email"
@@ -52,19 +53,24 @@ class LoginForm extends Component {
             onChange={this.changeHandler}
           />
           <br />
+          </label>
+         
 
           <br />
-          <label htmlFor="password">Mot de passe</label>
+          <label htmlFor="password">Mot de passe
           <br />
           <input
             type="password"
             name="password"
             className="email"
-            id="password"
+            autoComplete="on"
+            id="password-log"
             value={password}
             onChange={this.changeHandler}
           />
           <br />
+          </label>
+          
           <div className="passwordError"></div>
           <br />
           <input className="submit-button" type="submit" value="Se connecter" />

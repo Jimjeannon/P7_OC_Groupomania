@@ -14,7 +14,9 @@ router.post('/publish/:id',auth,multer, postController.publish);
 router.delete('/delete/:idPost/:id',auth, postController.deletePublish);
 
 router.get("/", likeController.numberlike);
+router.get("/liked/:id", likeController.liked)
+router.get("/:id", likeController.selectLike);
 router.post('/:id', likeController.like );
-router.delete('/deletelike/:id', likeController.dislike );
+router.delete('/deletelike/:id/:postId', likeController.dislike );
 
 module.exports = router;

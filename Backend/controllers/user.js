@@ -67,7 +67,7 @@ exports.update = (req, res, next) => {
 
 
             let sqlUpdate = `UPDATE users SET ${newProfil}, password='${password}' WHERE email='${email}' `;
-
+console.log(sqlUpdate);
 
             db.query(sqlUpdate, (err, result) => {
                 if (err) {

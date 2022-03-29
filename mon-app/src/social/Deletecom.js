@@ -8,6 +8,7 @@ const Delete = (props) => {
 
   const deleteHandler = (e) => {
     e.preventDefault();
+    
     let idCom = props.idCom;
     const auth = Cookies.get("Token");
 

@@ -1,52 +1,52 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-export default class Delete extends Component {
-  constructor(props) {
-    super(props);
+import swal from 'sweetalert';
 
-    this.state = {
-      email: "",
-      password: "",
-    };
-  }
+export default function Delete (props) {
+  
+  const [email, setEmail]= useState("")
+  const [password, setPassword]= useState("")
 
-  changeHandler = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
 
-  submitHandler = (e) => {
+
+ const submitHandler = (e) => {
     e.preventDefault();
-    let urlElements = window.location.href.split("/");
-    let id = urlElements[4];
-    const auth = Cookies.get("Token");
-
-    axios
-      .delete(`http://localhost:8080/api/user/delete/${id}`, {
-        headers: {
-          Authorization: `${auth}`,
-        },
-      })
-      .then((response) => {
-        function handleRemoveCookie() {
-          Cookies.remove("Token", { path: "" });
-        }
-        
-        window.location = "/";
-        handleRemoveCookie();
-      })
-      .catch((err) => {
-        let message = document.querySelector(".passwordError");
-        message.innerHTML = `${err.response.data.message}`;
-      });
+  
+    if(props.email != email){
+     swal("Email ou mot de passe incorrect")
+    }else{
+      let urlElements = window.location.href.split("/");
+      let id = urlElements[4];
+      const auth = Cookies.get("Token");
+  
+      axios
+        .delete(`http://localhost:8080/api/user/delete/${id}`, {
+          headers: {
+            Authorization: `${auth}`,
+          },
+        })
+        .then((response) => {
+          function handleRemoveCookie() {
+            Cookies.remove("Token", { path: "" });
+          }
+          window.location = "/";
+          handleRemoveCookie();
+        })
+        .catch((err) => {
+          let message = document.querySelector(".passwordError");
+          message.innerHTML = `${err.response.data.message}`;
+        });
+    }
+    
+   
   };
 
-  render() {
-    const { email, password } = this.state;
+  
+    
     return (
       <div className="card-delete">
-        <form className="card-form" onSubmit={this.submitHandler}>
+        <form className="card-form" onSubmit={submitHandler}>
           <div>
             Email
             <br />
@@ -54,7 +54,7 @@ export default class Delete extends Component {
               type="text"
               name="email"
               className="form-modif"
-              onChange={this.changeHandler}
+              onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
           </div>
@@ -68,7 +68,7 @@ export default class Delete extends Component {
               type="password"
               name="password"
               className="form-modif"
-              onChange={this.changeHandler}
+              onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
           </div>
@@ -83,5 +83,5 @@ export default class Delete extends Component {
         </form>
       </div>
     );
-  }
+  
 }

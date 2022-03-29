@@ -19,7 +19,8 @@ const Delete = (props) => {
         },
       })
       .then((response) => {
-        window.location = `/main/${id}`;
+        props?.refreshPosts()
+        // window.location = `/main/${id}`;
       })
       .catch((err) => {
        return swal(err.response.data.error)

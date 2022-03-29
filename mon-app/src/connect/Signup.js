@@ -1,30 +1,25 @@
 import axios from "axios";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "../App.css";
 import swal from 'sweetalert';
 
 
-class PostForm extends Component {
-  constructor(props) {
-    super(props);
+function Signup (props) {
+ 
 
-    this.state = {
-      email: "",
-      pseudo: "",
-      password: "",
-    }
-  }
+  const [email, setEmail]= useState("")
+  const [pseudo, setPseudo]= useState("")
+  const [password, setPassword]= useState("")
 
-  changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
 
-  submitHandler = (e) => {
+  const submitHandler = (e) => {
+    e.preventDefault();
     if(document.getElementById("lifecheck").checked){
-      e.preventDefault();
-     
+      
+     let profil = {email, pseudo, password}
+     console.log(profil)
      axios
-      .post("http://localhost:8080/api/user/signup", this.state)
+      .post("http://localhost:8080/api/user/signup", profil)
       .then((response) => {
         window.location = "/";
         let message = document.querySelector(".passwordError");
@@ -42,11 +37,11 @@ class PostForm extends Component {
      
   };
 
-  render() {
-    const { email, pseudo, password } = this.state;
+  
+    
     return (
       <div className="card-position">
-        <form className="card-form" onSubmit={this.submitHandler}>
+        <form className="card-form" onSubmit={submitHandler}>
           <div>
             Email
             <br />
@@ -55,7 +50,7 @@ class PostForm extends Component {
               name="email"
               className="email"
               value={email}
-              onChange={this.changeHandler}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <br />
@@ -67,7 +62,7 @@ class PostForm extends Component {
               name="pseudo"
               className="email"
               value={pseudo}
-              onChange={this.changeHandler}
+              onChange={(e) => setPseudo(e.target.value)}
             />
           </div>
           <div>
@@ -79,7 +74,7 @@ class PostForm extends Component {
               name="password"
               className="email"
               value={password}
-              onChange={this.changeHandler}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <br />
             <p>En continuant, vous acceptez les Conditions d'utilisation </p>
@@ -93,6 +88,6 @@ class PostForm extends Component {
       </div>
     );
   }
-}
 
-export default PostForm;
+
+export default Signup;

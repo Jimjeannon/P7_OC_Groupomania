@@ -8,6 +8,7 @@ import avatar from "../logos/avatar.jpg";
 
 const Profile = (props) => {
   const [imgSrc, setImgSrc] = useState("");
+  const [email, setEmail] = useState("");
   
   let urlElements = window.location.href.split("/");
   let id = urlElements[4];
@@ -20,7 +21,7 @@ const Profile = (props) => {
     })
     .then((response) => {
       setImgSrc(response.data[0].imageUrl);
-
+      setEmail(response.data[0].email)
       const email = document.getElementById("emailProfile");
       email.innerHTML = response.data[0].email;
 
@@ -96,7 +97,7 @@ const Profile = (props) => {
           className="btn-profil"
         />
         {UpModal && <Update />}
-        {DeleteModal && <Delete />}
+        {DeleteModal && <Delete email={email} />}
       </div>
     </div>
   );
