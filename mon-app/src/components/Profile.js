@@ -9,10 +9,18 @@ import avatar from "../logos/avatar.jpg";
 const Profile = (props) => {
   const [imgSrc, setImgSrc] = useState("");
   const [email, setEmail] = useState("");
-  
+  const [pseudo, setPseudo] = useState("");
+  const [city, setCity] = useState("");
+  const [job ,setJob] = useState("");
+  const [UpModal, setUpModal] = useState(false);
+  const [DeleteModal, setDeleteModal] = useState(false);
+
   let urlElements = window.location.href.split("/");
   let id = urlElements[4];
   const auth = Cookies.get("Token");
+
+  //Affichage du des info du profil user
+
   axios
     .get(`http://localhost:8080/api/user/profile/${id}`, {
       headers: {
@@ -21,25 +29,17 @@ const Profile = (props) => {
     })
     .then((response) => {
       setImgSrc(response.data[0].imageUrl);
-      setEmail(response.data[0].email)
-      const email = document.getElementById("emailProfile");
-      email.innerHTML = response.data[0].email;
-
-      const pseudo = document.getElementById("pseudoProfile");
-      pseudo.innerHTML = response.data[0].pseudo;
-
-      const city = document.getElementById("cityProfile");
-      city.innerHTML = response.data[0].Ville;
-
-      const job = document.getElementById("jobProfile");
-      job.innerHTML = response.data[0].Emploi;
+      setEmail(response.data[0].email);
+      setPseudo(response.data[0].pseudo);
+      setCity(response.data[0].Ville);
+      setJob(response.data[0].Emploi);
     })
     .catch((error) => {
       return console.log(error);
     });
 
-  const [UpModal, setUpModal] = useState(false);
-  const [DeleteModal, setDeleteModal] = useState(false);
+  //Fonction pour suprimer ou modifier un profil
+
   const handleModals = (e) => {
     if (e.target.id === "modifier") {
       setDeleteModal(false);
@@ -62,24 +62,24 @@ const Profile = (props) => {
           <UploadImg />
         </div>
 
-        <h1 id="pseudoProfile"></h1>
+        <h1 id="pseudoProfile">{pseudo}</h1>
         <div className="info-profile">
           <i className="fas fa-user"></i>
 
           <div id="jobProfile" className="info-profile">
-            Job
+            {job}
           </div>
         </div>
         <div className="info-profile">
           <i className="fas fa-map-marker-alt"></i>
           <div id="cityProfile" className="info-profile">
-            Ville
+            {city}
           </div>
         </div>
         <div className="info-profile">
           <i id="i" className="fas fa-envelope"></i>
-          <div className="info-profile" id="emailProfile" value="text">
-            Email
+          <div className="info-profile" id="emailProfile" value="text" >
+          {email}
           </div>
         </div>
         <input

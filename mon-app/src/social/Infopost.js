@@ -5,8 +5,6 @@ import Cookies from "js-cookie";
 
 export default class FormInputs extends Component {
   imageHandler = (e) => {
-    
-
     let file = e.target.files[0];
 
     this.setState({ file: file });
@@ -23,6 +21,8 @@ export default class FormInputs extends Component {
       [event.target.name]: event.target.value,
     });
   };
+
+  //Fonction pour envoyer les informations du nouveau post
 
   onSubmit = (event) => {
     const newPseudo = localStorage.getItem("pseudo");
@@ -41,11 +41,11 @@ export default class FormInputs extends Component {
     const id = localStorage.getItem("id");
     const file = this.state.file;
     let formdata = new FormData();
-    
+
     formdata.append("image", file);
     formdata.append("message", this.state.message);
     formdata.append("nom", pseudo);
-    
+
     axios({
       url: `http://localhost:8080/api/post/publish/${id}`,
       method: "POST",
@@ -53,12 +53,11 @@ export default class FormInputs extends Component {
         authorization: `${auth}`,
       },
       data: formdata,
-      
     }).then((res) => {
-     
       window.location = `/main/${id}`;
     });
   };
+
   toggle() {
     const id = localStorage.getItem("id");
     window.location = `/main/${id}`;
@@ -69,11 +68,9 @@ export default class FormInputs extends Component {
       <div className="card-body" id="new-post1">
         <i onClick={this.toggle} id="close" className="fa fa-ban close"></i>
         <h1>Publication</h1>
-
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="message">Message</label>
-
             <input
               data-text="true"
               type="text"
@@ -84,7 +81,6 @@ export default class FormInputs extends Component {
             />
           </div>
           <br />
-
           <label htmlFor="image"></label>
           <input
             type="file"
@@ -93,13 +89,7 @@ export default class FormInputs extends Component {
             id="input"
             onChange={(e) => this.imageHandler(e)}
           />
-
-          <button
-            className="btn btn-primary btn-block"
-           
-          >
-            Post
-          </button>
+          <button className="btn btn-primary btn-block">Post</button>
         </form>
       </div>
     );

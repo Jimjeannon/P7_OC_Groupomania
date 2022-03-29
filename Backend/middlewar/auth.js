@@ -1,4 +1,3 @@
-// Utulisation du package jsonwebtoken
 const jwt = require('jsonwebtoken');
 const dbc = require("../server/database");
 const db = dbc.getDB();
@@ -28,7 +27,6 @@ module.exports = (req, res, next) => {
                             message: 'Unauthorized request!'
                         });
                     } else {
-                        console.log("next")
                         next();
                     }
                 });

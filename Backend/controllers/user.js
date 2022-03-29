@@ -1,4 +1,3 @@
-const mysql = require("mysql");
 const bcrypt = require("bcrypt");
 const dbc = require("../server/database");
 const db = dbc.getDB();
@@ -67,7 +66,7 @@ exports.update = (req, res, next) => {
 
 
             let sqlUpdate = `UPDATE users SET ${newProfil}, password='${password}' WHERE email='${email}' `;
-console.log(sqlUpdate);
+
 
             db.query(sqlUpdate, (err, result) => {
                 if (err) {
@@ -84,8 +83,8 @@ console.log(sqlUpdate);
 
         })
 }
-// Fonction pour s'identifier 
 
+// Fonction pour s'identifier 
 
 exports.login = (req, res, next) => {
 
@@ -97,35 +96,36 @@ exports.login = (req, res, next) => {
             return res.status(404).json({
                 message: "Identification erreur"
             });
-        }if (result.length === 0) {
+        }
+        if (result.length === 0) {
             return res
-              .status(401)
-              .json({ error: "Identifiation ou mot de passe incorrect" });
-          } else {bcrypt.compare(password, result[0].password)
-            .then(valid => {
-                if (!valid) {
-                    res.status(400).json({
-                        message: "Mot de passe invalide",
-                    })
-                } else {
-                    res.status(200).json({
-                        pseudo: result['0'].pseudo,
-                        id: result['0'].id,
-                        token: jwt.sign({
-                                id: result['0'].id
-                            },
-                            process.env.KEY_TOKEN, {
-                                expiresIn: '24h'
-                            })
-                    })
+                .status(401)
+                .json({
+                    error: "Identifiation ou mot de passe incorrect"
+                });
+        } else {
+            bcrypt.compare(password, result[0].password)
+                .then(valid => {
+                    if (!valid) {
+                        res.status(400).json({
+                            message: "Mot de passe invalide",
+                        })
+                    } else {
+                        res.status(200).json({
+                            pseudo: result['0'].pseudo,
+                            id: result['0'].id,
+                            token: jwt.sign({
+                                    id: result['0'].id
+                                },
+                                process.env.KEY_TOKEN, {
+                                    expiresIn: '24h'
+                                })
+                        })
 
-                }
+                    }
 
-            })}
-
-
-        
-
+                })
+        }
 
     })
 }

@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import "../App.css";
-
 import Profile from "../components/Profile";
 import Logo from "../logos/icon-left-font-monochrome-black.png";
 import Cookies from "js-cookie";
-import {useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 function Home() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [logoutModal, setLogOutModal] = useState(false);
-  const [homeModal, setHomeModal] = useState(false);
 
   function handleRemoveCookie() {
     Cookies.remove("Token");
@@ -21,16 +18,12 @@ function Home() {
     if (e.target.id === "home-btn") {
       const newId = localStorage.getItem("id");
       const id = newId.replace(/"/g, "");
-      setHomeModal(true);
-      
-    navigate(`/main/${id}`)
-      
+      navigate(`/main/${id}`);
     }
     if (e.target.id === "logout") {
       setLogOutModal(true);
       handleRemoveCookie();
-      
-    navigate("/")
+      navigate("/");
     } else {
       console.log("Token cookie not found");
     }
@@ -46,7 +39,7 @@ function Home() {
         <button id="logout" onClick={handleModals}>
           Logout
         </button>
-        {logoutModal }
+        {logoutModal}
         <Profile />
       </div>
     </div>

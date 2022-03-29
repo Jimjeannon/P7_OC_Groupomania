@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 
 function Comments (props) {
 
-  console.log(props.id)
 
   const [isActive, setActive] = useState("false");
 
@@ -27,6 +26,8 @@ function Comments (props) {
    
     let newObj = { message: message ,pseudo: pseudo, idPost: idPost };
     
+// Fonction pour ajouter un commentaire 
+
     axios
       .post(`http://localhost:8080/api/comment/${idUser}`, {
         headers: {
@@ -39,19 +40,14 @@ function Comments (props) {
         return console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
+       return console.log(err);
       });
   };
 
   return (
     <div className={`card-form ${isActive ? "" : "actived"}`}>
-     <div >
-
         <i id="close-update" className="fa fa-ban close" onClick={handleToggle}></i>
-     
-      
       <h1>Commentaire</h1>
-
       <form>
         <div className="form-group">
           <label htmlFor="message">Message</label>
@@ -72,7 +68,6 @@ function Comments (props) {
           Comments
         </button>
       </form>
-      </div>
     </div>
   );
 }

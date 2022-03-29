@@ -8,9 +8,11 @@ const Delete = (props) => {
 
   const deleteHandler = (e) => {
     e.preventDefault();
-    
+
     let idCom = props.idCom;
     const auth = Cookies.get("Token");
+
+    // Fonction pour supprimer un commentaire
 
     axios
       .delete(`http://localhost:8080/api/comment/delete/${idCom}/${id}`, {

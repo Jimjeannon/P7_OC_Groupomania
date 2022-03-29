@@ -19,7 +19,6 @@ exports.uploadImage = (req, res, next) => {
             } else {
                 let filename = result['0'].imageUrl;
                 let file = filename.slice(22);
-
                 unlink(`${file}`, (err) => {
                     if (err) err;
 

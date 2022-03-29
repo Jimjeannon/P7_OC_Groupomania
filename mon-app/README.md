@@ -16,7 +16,7 @@ cd backend installation npm & nodemon
 
 cd mon-app installation npm & react 
 
-installer le fichier SQL dans votre gestionnaire de logiciels de base de données
+installer le fichier SQL: Groupomania.sql dans votre gestionnaire de logiciels de base de données
 
 ### `Utilisation`
 

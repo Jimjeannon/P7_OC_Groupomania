@@ -3,54 +3,61 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export class UploadImg extends Component {
- 
-  state=  {
-    file: null
+
+  state = {
+    file: null,
+  };
+
+  handleFile(e) {
+    let file = e.target.files[0];
+    this.setState({ file: file });
   }
-  
-handleFile(e){
-  
 
-  let file = e.target.files[0]
+  //Fonction pour modifier l'image de profil
 
-  this.setState({file: file})
-}
-
-handleUpload(e) {
-const auth = Cookies.get('Token');
-const file = this.state.file
-const id = localStorage.getItem("id");
-let formdata = new FormData()
-
-formdata.append('image', file)
-  axios({
-    url: `http://localhost:8080/api/user/image/${id}`,
-    method: 'POST',
-    headers: {
-      authorization: `${auth}`
-    },
-    data: formdata // pass here
-  }).then((res)=>{
+  handleUpload(e) {
+    const auth = Cookies.get("Token");
+    const file = this.state.file;
     const id = localStorage.getItem("id");
-    return window.location = `/profil/${id}`;
-  })
+    let formdata = new FormData();
 
-}
+    formdata.append("image", file);
+    axios({
+      url: `http://localhost:8080/api/user/image/${id}`,
+      method: "POST",
+      headers: {
+        authorization: `${auth}`,
+      },
+      data: formdata,
+    }).then((res) => {
+      const id = localStorage.getItem("id");
+      return (window.location = `/profil/${id}`);
+    });
+  }
 
-  render(){
-    return(
-<div>
-  <form >
-    <div className="info-profile">
-      <label htmlFor="Ajouter image">
-        <input type="file" title="Changer image de profil" accept="image/*" name="file" id="ajouter-image" onChange={(e)=>this.handleFile(e)}/>
-      </label>
-    </div>
-    <button type="button" onClick={(e)=>this.handleUpload(e)}>Upload</button>
-  </form>
-</div>
+  render() {
+    return (
+      <div>
+        <form>
+          <div className="info-profile">
+            <label htmlFor="Ajouter image">
+              <input
+                type="file"
+                title="Changer image de profil"
+                accept="image/*"
+                name="file"
+                id="ajouter-image"
+                onChange={(e) => this.handleFile(e)}
+              />
+            </label>
+          </div>
+          <button type="button" onClick={(e) => this.handleUpload(e)}>
+            Upload
+          </button>
+        </form>
+      </div>
     );
   }
 }
-  
-  export default UploadImg;
+
+export default UploadImg;

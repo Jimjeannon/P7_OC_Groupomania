@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 const Delete = (props) => {
   let urlElements = window.location.href.split("/");
   let id = urlElements[4];
+
+  //Fonction pour suprimer un post
 
   const deleteHandler = (e) => {
     e.preventDefault();
@@ -19,11 +21,10 @@ const Delete = (props) => {
         },
       })
       .then((response) => {
-        props?.refreshPosts()
-        // window.location = `/main/${id}`;
+        props?.refreshPosts();
       })
       .catch((err) => {
-       return swal(err.response.data.error)
+        return swal(err.response.data.error);
       });
   };
 
