@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import swal from "sweetalert";
+import { validPassword } from "../feedback/regex";
 
 export default function Delete(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [pwdError, setPwdError] = useState(false);
 
   //Fonction pour suprimer un profil
 
   const submitHandler = (e) => {
     e.preventDefault();
-
+    if (!validPassword.test(password)) {
+      return setPwdError(true);
+    }
     //Condition de verification pour la suppression
     if (props.email !== email) {
       swal("Email ou mot de passe incorrect");
@@ -78,6 +82,9 @@ export default function Delete(props) {
           type="submit"
           value="Suprimer profil"
         />
+        <div className="err-update">
+          {pwdError && <p>Mot de passe invalide</p>}
+        </div>
       </form>
     </div>
   );

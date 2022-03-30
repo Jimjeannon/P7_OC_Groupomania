@@ -10,7 +10,7 @@ import Allcom from "../social/Allcom";
 function Post({ post, refreshPosts }) {
   const [newComModal, setUpComModal] = useState(false);
 
-  //Fonction pour commenter un post
+  //Fonction pour un post
 
   const commentModals = (e) => {
     if (e.target.className === "fa fa-comment comment") {

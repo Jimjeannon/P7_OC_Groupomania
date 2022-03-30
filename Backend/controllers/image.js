@@ -16,11 +16,14 @@ exports.uploadImage = (req, res, next) => {
                 res.status(404).json({
                     message: "Image erreur"
                 });
+            }
+            if (result['0'].imageUrl === null) {
+                console.log("next")
             } else {
                 let filename = result['0'].imageUrl;
                 let file = filename.slice(22);
                 unlink(`${file}`, (err) => {
-                    if (err) err;
+                    if (err) return err;
 
                 })
             }

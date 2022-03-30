@@ -179,6 +179,10 @@ body {
     padding: 0 16px;
     width: 332px;
   }
+
+  .err-update{
+    color: rgb(197, 64, 64);
+  }
   
   /* New post bar style */
   

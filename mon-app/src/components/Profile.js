@@ -6,7 +6,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import avatar from "../logos/avatar.jpg";
 
-const Profile = (props) => {
+const Profile = () => {
   const [imgSrc, setImgSrc] = useState("");
   const [email, setEmail] = useState("");
   const [pseudo, setPseudo] = useState("");
@@ -96,7 +96,7 @@ const Profile = (props) => {
           id="suprimer"
           className="btn-profil"
         />
-        {UpModal && <Update />}
+        {UpModal && <Update email={email} ville={city} pseudo={pseudo} emploi={job} />}
         {DeleteModal && <Delete email={email} />}
       </div>
     </div>
