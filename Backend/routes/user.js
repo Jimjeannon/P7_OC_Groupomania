@@ -14,7 +14,7 @@ const validPass = require('../middlewar/password');
 
 // Creation des routes user avec les middleware
 
-router.put('/update', userCtrl.update);
+router.put('/update/:id', userCtrl.update);
 router.delete('/delete/:id', userCtrl.delete); 
 router.get('/profile/:id',auth, userCtrl.getOneUser);
 router.post('/image/:id',multer,auth, img.uploadImage);

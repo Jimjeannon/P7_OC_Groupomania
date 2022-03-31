@@ -58,13 +58,11 @@ exports.update = (req, res, next) => {
 
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
+
             const password = hash;
             const profil = JSON.stringify(req.body);
             let email = req.body.email;
-
             const newProfil = profil.replace(/","/g, '",').replace(/":"/g, '="').replace('{"', '').replace('}', '').replace(/"/g, "'");
-
-
             let sqlUpdate = `UPDATE users SET ${newProfil}, password='${password}' WHERE email='${email}' `;
 
 
@@ -82,6 +80,22 @@ exports.update = (req, res, next) => {
             })
 
         })
+
+    const id = req.params.id;
+    let pseudo = req.body.pseudo;
+
+    let sqlUserName = `UPDATE post SET name_poster ='${pseudo}' WHERE user_id ='${id}'`
+    console.log(sqlUserName)
+    db.query(sqlUserName, (err, result) => {
+        if (err) {
+            console.log("not")
+        } else {
+            console.log("ok")
+
+        }
+    })
+
+
 }
 
 // Fonction pour s'identifier 

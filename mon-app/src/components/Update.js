@@ -22,18 +22,18 @@ const Update = (profile) => {
     if (!validPassword.test(password)) {
       return setPwdError(true);
     }
-
+    let newPseudo = localStorage.setItem('pseudo', pseudo);
     const auth = Cookies.get("Token");
     let update = { email, pseudo, password, Emploi, Ville };
-
+    const id = localStorage.getItem("id");
     axios
-      .put("http://localhost:8080/api/user/update", update, {
+      .put(`http://localhost:8080/api/user/update/${id}`, update, {
         headers: {
           Authorization: `${auth}`,
         },
       })
       .then((response) => {
-        const id = localStorage.getItem("id");
+        
         return (window.location = `/profil/${id}`);
       })
       .catch((err) => {
