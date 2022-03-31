@@ -49,7 +49,7 @@ function Post({ post, refreshPosts }) {
             id={post.id}
             onClick={commentModals}
           ></i>
-          <Like idPost={post} />
+          <Like idPost={post} refreshPosts={refreshPosts}/>
         </div>
         <div className="com-post">{post.message}</div>
         <div>

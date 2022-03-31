@@ -13,7 +13,7 @@ const App = (props) => {
 
   //Fonction pour recuperer le nombre de like
 
-  useEffect(() => {
+  const refreshLike = () => {
     axios
       .get(`http://localhost:8080/api/like/`)
       .then((res) => {
@@ -22,6 +22,10 @@ const App = (props) => {
       .catch((err) => {
         return console.log(err);
       });
+  }
+
+  useEffect(() => {
+    refreshLike();
   }, []);
 
   //Fonction pour ajouter le nombre de like par post
@@ -60,7 +64,8 @@ const App = (props) => {
               data: idPost,
             })
             .then((res) => {
-              window.location = `/main/${id}`;
+              refreshLike ()
+              props?.refreshPosts();
               return console.log(res.data);
             })
             .catch((err) => {
@@ -79,8 +84,9 @@ const App = (props) => {
               }
             )
             .then((res) => {
-              window.location = `/main/${id}`;
-              return console.log(res.data);
+              refreshLike ()
+              props?.refreshPosts();
+              return setStyle(null);
             })
             .catch((err) => {
               console.log(err);
