@@ -65,7 +65,7 @@ body {
     border-radius: 6px;
     padding: 14px 16px;
     width: 330px;
-    border: 1px solid#727272;
+    border: 1px solid #727272;
     background-color: #e6effd;
   }
   
@@ -74,7 +74,7 @@ body {
     border-radius: 6px;
     padding: 14px 16px;
     width: 330px;
-    border: 1px solid#727272;
+    border: 1px solid #727272;
     background-color: #e6effd;
   }
   
@@ -83,7 +83,7 @@ body {
     border-radius: 6px;
     padding: 14px 16px;
     width: 280px;
-    border: 1px solid#727272;
+    border: 1px solid #727272;
     background-color: rgb(253, 239, 239);
   }
   
@@ -206,7 +206,7 @@ body {
     width: 40px;
     height: 40px;
     cursor: pointer;
-    border: 1px solid#dbdbdb;
+    border: 1px solid #dbdbdb;
     background-color: #e6effd;
   }
   
@@ -220,7 +220,7 @@ body {
     align-items: center;
     justify-content: center;
     justify-content: space-between;
-    border: 1px solid#dbdbdb;
+    border: 1px solid #dbdbdb;
     border-radius: 8px;
     background-color: white;
     margin-bottom: 16px;
@@ -340,7 +340,7 @@ body {
     font-size: 17px;
     border-radius: 6px;
     padding: 14px 16px;
-    border: 1px solid#727272;
+    border: 1px solid #727272;
     background-color: #e6effd;
   }
   
@@ -404,9 +404,7 @@ body {
   }
 
   .message-com{
-    width: 80%;
     text-overflow: ellipsis;
-    
   }
   
   /* Like btn */
@@ -490,4 +488,6 @@ input[type='file'] { color: transparent; }
     
   }
 
+
+ 
 

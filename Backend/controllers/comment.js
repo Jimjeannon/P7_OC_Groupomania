@@ -29,28 +29,35 @@ exports.comment = (req, res, next) => {
 exports.delete = (req, res, next) => {
     let com_id = req.params.idCom;
     let user_id = req.params.id;
+    let sqlAdmin = `SELECT Admin FROM users WHERE id = '${user_id}'`;
 
-    let sqlCheck = `SELECT user_id FROM comment WHERE id_com='${com_id}'`;
-    db.query(sqlCheck, (err, result) => {
+    db.query(sqlAdmin, (err, result) => {
 
-        if (result[0].user_id != user_id) {
-            return res.status(404).json({
-                message: "Supression non authorisé"
-            });
-        } else {
-            let sqlDelete = `DELETE FROM comment WHERE id_com ='${com_id}'`;
+        let admin = result[0].Admin;
 
-            db.query(sqlDelete, (err, result) => {
-                if (err) {
-                    return res.status(404).json({
-                        message: "Supretion erreur "
-                    });
-                };
-                res.status(200).json({
-                    message: "Commentaire suprimé !"
+
+        let sqlCheck = `SELECT user_id FROM comment WHERE id_com='${com_id}'`;
+        db.query(sqlCheck, (err, result) => {
+
+            if (admin == null && result[0].user_id != user_id) {
+                return res.status(404).json({
+                    message: "Supression non authorisé"
                 });
-            })
-        }
+            } else {
+                let sqlDelete = `DELETE FROM comment WHERE id_com ='${com_id}'`;
+
+                db.query(sqlDelete, (err, result) => {
+                    if (err) {
+                        return res.status(404).json({
+                            message: "Supretion erreur "
+                        });
+                    };
+                    res.status(200).json({
+                        message: "Commentaire suprimé !"
+                    });
+                })
+            }
+        })
     })
 }
 

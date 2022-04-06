@@ -48,29 +48,32 @@ exports.publish = (req, res, next) => {
 exports.deletePublish = (req, res, next) => {
     let post_id = req.params.idPost;
     let id_user = req.params.id;
+    let sqlAdmin = `SELECT Admin FROM users WHERE id = '${id_user}'`;
+    db.query(sqlAdmin, (err, result) => {
 
+        let admin = result[0].Admin;
 
-    let sqlCheck = `SELECT user_id FROM post WHERE id='${post_id}'`;
-    db.query(sqlCheck, (err, result) => {
-        if (result[0].user_id != id_user) {
-            return res.status(404).json({
-                message: "Supression non authorisé"
-            });
-        } else {
-            let sqlDelete = `DELETE FROM post WHERE id='${post_id}'`;
-            db.query(sqlDelete, (err, result) => {
-                if (err) {
-                    return res.status(404).json({
-                        message: "Supression erreur"
-                    });
-                };
-                res.status(200).json({
-                    message: "Post suprimé"
+        let sqlCheck = `SELECT user_id FROM post WHERE id='${post_id}'`;
+        db.query(sqlCheck, (err, result) => {
+            if (admin == null && result[0].user_id != id_user) {
+                return res.status(404).json({
+                    message: "Supression non authorisé"
                 });
-            })
-        }
+            } else {
+                let sqlDelete = `DELETE FROM post WHERE id='${post_id}'`;
+                db.query(sqlDelete, (err, result) => {
+                    if (err) {
+                        return res.status(404).json({
+                            message: "Supression erreur"
+                        });
+                    };
+                    res.status(200).json({
+                        message: "Post suprimé"
+                    });
+                })
+            }
+        })
     })
-
 
 };
 

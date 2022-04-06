@@ -1,22 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Box from '@mui/material/Box';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Comments (props) {
 
-
+  const [loading, setLoading] = useState(false);
   const [isActive, setActive] = useState("false");
+  const [message, setMessage] = useState("");
+  
+  const timerRef = useRef();
+
+  useEffect(
+    () => () => {
+      clearTimeout(timerRef.current);
+    },
+    [],
+  );
 
   const handleToggle = () => {
     setActive(!isActive);
   };
 
-  const [message, setMessage] = useState("");
+  
 
 
   const onSubmit = (e) => {
      e.preventDefault();
-    
+     setLoading((prevLoading) => !prevLoading);
    
     const newPseudo = localStorage.getItem("pseudo");
     const pseudo = newPseudo.replace(/"/g, "");
@@ -51,7 +65,7 @@ function Comments (props) {
       <form>
         <div className="form-group">
           <label htmlFor="message">Message</label>
-
+          <br />
           <input
             type="text"
             className="form-group-input"
@@ -60,13 +74,30 @@ function Comments (props) {
           />
         </div>
         <br />
-        <button
+     
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box sx={{ height: 40 }}>
+        <Fade
+          in={loading}
+          style={{
+            transitionDelay: loading ? '800ms' : '0ms',
+          }}
+          unmountOnExit
+        >
+          <CircularProgress />
+        </Fade>
+      </Box>
+      <button
           type="submit"
           onClick={onSubmit}
+          sx={{ m: 0 }}
           className="btn btn-primary btn-block"
         >
-          Comments
+          
+          {loading ? 'Loading' : 'Comments'}
         </button>
+   
+    </Box>
       </form>
     </div>
   );

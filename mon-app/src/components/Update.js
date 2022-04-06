@@ -52,9 +52,13 @@ const Update = (profile) => {
             type="email"
             name="email"
             className="form-modif"
+            autoComplete="on"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             placeholder={profile.email}
+            minLength="2" 
+            maxLength="35"
+            required="required"
           />
         </div>
         <br />
@@ -69,6 +73,9 @@ const Update = (profile) => {
             onChange={(e) => setPseudo(e.target.value)}
             value={pseudo}
             placeholder={profile.pseudo}
+            minLength="2" 
+            maxLength="25"
+            required="required"
           />
         </div>
         <div>
@@ -82,6 +89,9 @@ const Update = (profile) => {
             autoComplete="on"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            minLength="2" 
+            maxLength="25"
+            required="required"
           />
         </div>
         <div>
@@ -96,6 +106,9 @@ const Update = (profile) => {
             onChange={(e) => setEmploi(e.target.value)}
             value={Emploi}
             placeholder={profile.emploi}
+            minLength="2" 
+            maxLength="25"
+            required="required"
           />
         </div>
         <div>
@@ -110,6 +123,9 @@ const Update = (profile) => {
             onChange={(e) => setVille(e.target.value)}
             value={Ville}
             placeholder={profile.ville}
+            minLength="2" 
+            maxLength="25"
+            required="required"
           />
         </div>
         <br />

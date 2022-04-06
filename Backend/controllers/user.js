@@ -83,9 +83,8 @@ exports.update = (req, res, next) => {
 
     const id = req.params.id;
     let pseudo = req.body.pseudo;
-
     let sqlUserName = `UPDATE post SET name_poster ='${pseudo}' WHERE user_id ='${id}'`
-    console.log(sqlUserName)
+    
     db.query(sqlUserName, (err, result) => {
         if (err) {
             console.log("not")

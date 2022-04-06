@@ -5,8 +5,8 @@ import Stack from "@mui/material/Stack";
 import Delete from "../social/Deletecom";
 
 function Allcom(props) {
+  
   const [com, setCom] = useState([]);
-  const handleClick = () => alert("Clicked");
 
   // Afficher tout les commentaires
 
@@ -37,7 +37,6 @@ function Allcom(props) {
               >
                 <Delete
                   className="trash"
-                  click={handleClick}
                   idCom={event.id_com}
                 />
               </div>
